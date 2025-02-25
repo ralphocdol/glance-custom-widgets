@@ -1,0 +1,47 @@
+- type: custom-api
+  css-class: widget-no-title
+  url: https:${MY_WEBSERVER_URL}/api/get-drive-stats?host=host1.com:22&host=host.com:22
+  headers:
+    Accept: application/json
+  cache: 1s
+  template: |
+    <div class="flex flex-column gap-5">
+      <div class="services-title">
+        <div class="flex gap-20 items-center">
+          <img src="${CUSTOM_ICONS}/harddisk.svg">
+          <strong class="size-h3 block">Disk Usage</strong>
+        </div>
+      </div>
+      {{ range .JSON.Array "" }}
+      <div class="flex justify-between text-center gap-15">
+        <div class="flex-1">
+          <div class="flex justify-between items-end size-h5">
+              <div class="uppercase">{{ .String "0.host" }}</div>
+              <div class="color-highlight text-very-compact">
+                {{ .Int "0.use_percent" }} <span class="color-base">%</span>
+              </div>
+          </div>
+          <div data-popover-type="html">
+            <div data-popover-html>
+              <ul class="list list-gap-2">
+                {{ range .Array "" }}
+                <li class="flex">
+                  <div class="size-h5">{{ .String "filesystem" }}</div>
+                  <div class="value-separator"></div>
+                  <div class="color-highlight text-very-compact">
+                      {{ .String "used" }} <span class="color-base size-h5">/</span> {{ .String "size" }}
+                  </div>
+                </li>
+                {{ end }}
+              </ul>
+            </div>
+            <div class="progress-bar progress-bar-combined">
+              {{ range .Array "" }}
+              <div class="progress-value{{ if ge (.Int "use_percent") 80 }} progress-value-notice{{ end }}" style="--percent: {{ .Int "use_percent" }}"></div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
