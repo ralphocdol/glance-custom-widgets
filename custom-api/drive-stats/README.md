@@ -21,7 +21,8 @@ However, the template can still be used. Expected API return is:
         "avail": "23GB",
         "use_percent": 61,
         "mount": "sda1",
-        "host": "hass.local",    // from hass.local:22 or just IP without port
+        "host": "hass.local",
+        "alias": "Home Assistant",  // from host=hass.local:22:Home%20Assistant
     },
 ]
 ```
