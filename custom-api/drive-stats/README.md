@@ -1,6 +1,7 @@
 # Drive Stats
 ---
 
+#### row=1
 ![drive-stats](../../screenshots/drive-stats.png)
 
 
@@ -22,14 +23,11 @@ However, the template can still be used. Expected API return is:
         "mount": "sda1",
         "host": "hass.local",    // from hass.local:22 or just IP without port
     },
-    {
-        "filesystem": "/dev/sda2",
-        "size": "80GB",
-        "used": "30GB",
-        "avail": "50GB",
-        "use_percent": 37,
-        "mount": "sda2",
-        "host": "192.168.10.131",
-    },    
 ]
 ```
+
+#### row=2
+```yml
+ url: https:${MY_WEBSERVER_URL}/api/get-drive-stats?host=host1&row=2
+```
+![drive-stats-2-row](../../screenshots/drive-stats-2-rows.png)

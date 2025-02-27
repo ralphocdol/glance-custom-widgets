@@ -1,6 +1,6 @@
 - type: custom-api
   css-class: widget-no-title
-  url: https:${MY_WEBSERVER_URL}/api/get-drive-stats?host=host1.com:22&host=host.com:22
+  url: https:${MY_WEBSERVER_URL}/api/get-drive-stats?host=host1.com:22:nextcloud&host=host.com:22:alias2&row=2
   headers:
     Accept: application/json
   cache: 1s
@@ -14,12 +14,18 @@
       </div>
       {{ range .JSON.Array "" }}
       <div class="flex justify-between text-center gap-15">
+        {{ range .Array "" }}
         <div class="flex-1">
-          <div class="flex justify-between items-end size-h5">
-              <div class="uppercase">{{ .String "0.host" }}</div>
+          <div data-popover-type="html">
+            <div data-popover-html>
+              <div class="color-highlight text-very-compact">{{ .String "0.host" }}</div>
+            </div>
+            <div class="flex justify-between items-end size-h5">
+              <div class="uppercase">{{ .String "0.alias" }}</div>
               <div class="color-highlight text-very-compact">
                 {{ .Int "0.use_percent" }} <span class="color-base">%</span>
               </div>
+            </div>
           </div>
           <div data-popover-type="html">
             <div data-popover-html>
@@ -42,6 +48,7 @@
             </div>
           </div>
         </div>
+        {{ end }}
       </div>
       {{ end }}
     </div>
