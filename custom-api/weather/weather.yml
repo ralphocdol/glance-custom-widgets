@@ -1,0 +1,32 @@
+- type: custom-api
+  title: Weather
+  css-class: widget-no-title custom-widget-weather
+  cache: 1s
+  url: https:${WEBSERVER_URL}/api/home-assistant-entities?entity=weather.cloned_weather_home&entity=sensor.room_temperature&entity=sensor.living_room_temperature
+  headers:
+    Accept: application/json
+    api-url: http:${HOMEASSISTANT_URL}
+    api-token: ${HOMEASSISTANT_KEY}
+  template: |
+    <div class="flex flex-column gap-5">
+      <a href="//${HOMEASSISTANT_URL}/dashboard-main/weather" target="_blank">
+        <div class="flex gap-20 items-center weather-img-container">
+          <img src="${WEATHER_ICONS}/{{ .JSON.String "0.weatherIcon" }}.svg">
+          <strong class="size-h4 block capitalize weather-state">{{ .JSON.String "0.state" }}</strong>
+        </div>
+      </a>
+      <div class="flex justify-between text-center">
+        <div class="shrink min-width-0">
+            <div class="color-highlight size-h4 weather-temperature">{{ .JSON.Float "0.moreData.temperature" | formatNumber }}{{ .JSON.String "0.moreData.temperature_unit" }}</div>
+            <div class="text-very-compact uppercase">Weather</div>
+        </div>
+        <div class="shrink min-width-0">
+            <div class="color-highlight size-h4 bedroom-temperature">{{ .JSON.Float "1.state" | formatNumber }}{{ .JSON.String "1.unit_of_measurement" }}</div>
+            <div class="text-very-compact uppercase">Bedroom</div>
+        </div>
+        <div class="shrink min-width-0">
+            <div class="color-highlight size-h4 living-room-temperature">{{ .JSON.Float "2.state" | formatNumber }}{{ .JSON.String "2.unit_of_measurement" }}</div>
+            <div class="text-very-compact uppercase">Living Room</div>
+        </div>
+      </div>
+    </div>

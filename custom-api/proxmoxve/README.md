@@ -1,4 +1,4 @@
-# Promox Widget Card
+# Proxmox Widget Card
 ---
 ![proxmox-widget-card](../../screenshots/proxmox-widget-card.png)
 
