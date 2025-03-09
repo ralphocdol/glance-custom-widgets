@@ -1,0 +1,6 @@
+{
+    "modules": [
+      "customObserver.js",
+      "customApiScriptLoader.js"
+    ]
+  }
