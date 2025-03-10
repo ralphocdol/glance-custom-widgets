@@ -1,4 +1,5 @@
 # This adds a helper script for Glance
+Script tested for [Glance v0.7.3](https://github.com/glanceapp/glance/releases/tag/v0.7.3)
 ## document.yml
 This file has the script loader for custom.js, it loads it using `file modified` date as [Cache Busting](https://www.keycdn.com/support/what-is-cache-busting) assuming your reverse proxy server supports it. Otherwise, you can simply do:
 ```js
@@ -11,16 +12,18 @@ updating to `v=2` and so on, or use `timestamp` which is probably isn't a good i
 document:
   !include: document.yml
 
-# server:
-#   assets-path: /app/assets
+server:
+  assets-path: /app/assets
 ```
+
 ---
 
 ## custom-api's \<scripts\>
+Using `customApiScriptLoader.js`
 > ### <span style="color:red;">WARNING!</span>
 > Using API queries with API keys within the script is possible but it **WILL** expose them.
 
-As of [v0.7.3](https://github.com/glanceapp/glance/releases/tag/v0.7.3), adding `<script></script>` in the custom API template does not work, as the script will not load. Additionally, there is currently no way to automatically refresh widgets independently.
+Adding `<script></script>` in the custom API template does not work, as the script will not load. Additionally, there is currently no way to automatically refresh widgets independently.
 
 The template should have the class `custom-api-scripts` and the function `scriptLoad()`
 ```html
@@ -81,6 +84,26 @@ The template should have the class `custom-api-scripts` and the function `script
     </div>
 ```
 ---
+
+## Mobile Scroll Offset
+For one-hand operation on smart phones
+
+![Mobile Scroll Offset](../screenshots/mobile-scroll-offset.png)
+
+---
+
+## Mobile navigation workaround
+Workaround when using
+```yml
+expand-mobile-page-navigation: true
+```
+
+By default, the `SHOW LESS` will be behind the navigation bar, this addresses that issue.
+
+![Mobile Navigation fix](../screenshots/mobile-nav-fix.png)
+
+---
+
 ## Adding a module
 1. Create a `.js` inside the modules folder
   

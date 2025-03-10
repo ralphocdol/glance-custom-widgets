@@ -1,5 +1,5 @@
 const loadScript = async (timestamp) => {
-    console.log('Custom script loaded! ' + (new Date(timestamp)).toLocaleString());
+    console.log('Custom script loaded! Updated on ' + (new Date(timestamp)).toLocaleString());
 
     /**
      * Load all modules
@@ -32,13 +32,8 @@ const loadScript = async (timestamp) => {
         }
     })();
 
-    // Initialize observer
-    const { default: observeMutations, resetDisconnectTimer } = allModules.customObserver;
-    observeMutations(() => {
-        allModules.customApiScriptLoader.default(resetDisconnectTimer);
-        /**
-         * More can be added, pass resetDisconnectTimer function to make sure
-         * the observer remains active until everything is loaded
-         */
-    });
+    allModules.fixMobileNavigation.default();
+    allModules.mobileScrollOffset.default();
+    allModules.customApiScriptLoader.default();
+
 };

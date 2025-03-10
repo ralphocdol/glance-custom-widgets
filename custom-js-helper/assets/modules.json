@@ -1,6 +1,7 @@
 {
     "modules": [
-      "customObserver.js",
+      "mobileScrollOffset.js",
+      "fixMobileNavigation.js",
       "customApiScriptLoader.js"
     ]
   }
