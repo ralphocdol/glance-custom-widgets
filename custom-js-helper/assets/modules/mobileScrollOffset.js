@@ -46,4 +46,8 @@ export default () => {
             window.scrollTo({ top: offset, behavior: "smooth" });
         }
     });
+
+    // Move id='top' to body
+    document.documentElement.removeAttribute('id');
+    document.body.id = 'top';
 };
