@@ -1,5 +1,5 @@
 const loadScript = async (timestamp) => {
-    console.log('Custom script loaded! Updated on ' + (new Date(timestamp)).toLocaleString());
+    console.log('Custom script loaded! ' + (new Date(timestamp)).toLocaleString());
 
     /**
      * Load all modules
@@ -31,9 +31,4 @@ const loadScript = async (timestamp) => {
             return {};
         }
     })();
-
-    allModules.fixMobileNavigation.default();
-    allModules.mobileScrollOffset.default();
-    allModules.customApiScriptLoader.default();
-
 };

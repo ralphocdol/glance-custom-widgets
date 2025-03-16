@@ -83,12 +83,6 @@ The template should have the class `custom-api-scripts` and the function `script
       <p class="size-h4 color-paragraph custom-text">{{ .JSON.String "text" }}</p>
     </div>
 ```
----
-
-## Mobile Scroll Offset
-For one-hand operation on smart phones
-
-![Mobile Scroll Offset](../screenshots/mobile-scroll-offset.png)
 
 ---
 
