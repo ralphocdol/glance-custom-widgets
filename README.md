@@ -1,1 +1,1 @@
-# glance-custom-helpers
+# glance-custom-widgets
