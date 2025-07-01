@@ -1,0 +1,97 @@
+- type: custom-api
+  cache: 30m
+  url: https://${OMV_URL}/rpc.php
+  css-class: glimpsable-custom
+  title: Open Media Vault
+  frameless: true
+  headers:
+    Accept: application/json
+  body:
+    service: Session
+    method: login
+    params:
+      username: ${OMV_USERNAME}
+      password: ${OMV_PASSWORD}
+  options:
+    drive-body:
+      service: FileSystemMgmt
+      method: getList
+      params:
+        start: 0
+        limit: 10
+  template: |
+    $include: /app/config/defines/errorMsg.gohtml
+
+    {{ $sessionId := .JSON.String "response.sessionid" }}
+    {{ if eq $sessionId "" }}
+      {{ template "errorMsg" "No sessionID generated." }}
+    {{ else }}
+
+    {{
+      $drivesRpc := newRequest "https://${OMV_URL}/rpc.php"
+        | withHeader "X-OPENMEDIAVAULT-SESSIONID" $sessionId
+        | withHeader "Accept" "application/json"
+        | withStringBody (.Options.JSON "drive-body")
+        | getResponse
+    }}
+
+    {{ $drives := ($drivesRpc.JSON.Array "response.data") }}
+
+    <div responsive-table paginate row-limit="15" row-limit-mobile="5">
+      <div table-header>
+        <div sortable sort-default-asc data-width="2">Device Name</div>
+        <div sortable>Type</div>
+        <div sortable data-width="2">Used</div>
+        <div sortable>Available</div>
+        <div sortable>Total Size</div>
+        <div>UUID</div>
+        <div>Disk ID</div>
+      </div>
+      <div table-body>
+        {{ range $drives }}
+        {{ if lt (.Int "percentage") 0 }}{{ continue }}{{ end }}
+        <div table-row>
+          <div data-as-mobile-title>{{ .String "devicename" }}</div>
+          <div data-show-on-mobile>{{ .String "type" }}</div>
+          <div data-to-sort="{{ .Int "percentage" }}">
+            <div style="padding: 5px 20px 5px 3px; line-height: normal;">
+              <div class="flex">
+                <div class="flex-1">
+                  <span class="color-highlight">{{ .Int "percentage" }}</span><span class="color-base">%</span>
+                </div>
+                <div class="flex-1 text-right">
+                  <span>{{ div (sub (.Float "size") (.Float "available")) 1073741824 | printf "%.2f" | formatNumber }}</span><span class="color-base">GB</span>
+                </div>
+              </div>
+              <div class="progress-bar hide-on-mobile">
+                <div class="progress-value{{ if ge (.Int "percentage") 80 }} progress-value-notice{{ end }}" style="--percent: {{ .Int "percentage" }}"></div>
+              </div>
+            </div>
+          </div>
+          <div data-to-sort="{{ .Float "available" }}">
+            <span class="color-highlight">{{ mul (div (.Float "available") (.Float "size")) 100 | toInt }}</span><span class="color-base">%</span>
+            <span>{{ div (.Float "available") 1073741824 | printf "%.2f" | formatNumber }}</span><span class="color-base">GB</span>
+          </div>
+          <div data-to-sort="{{ .Float "size" }}">
+            <span>{{ div (.Float "size") 1073741824 | printf "%.2f" | formatNumber }}</span><span class="color-base">GB</span>
+          </div>
+          <div data-as-collapsed-column>
+            {{ if ne (.String "uuid") "" }}
+              {{ .String "uuid" }}
+            {{ else }}
+              -
+            {{ end }}
+          </div>
+          <div data-as-collapsed-column>
+            {{ if ne (.String "devlinks.0") "" }}
+              {{ .String "devlinks.0" | replaceAll "/dev/disk/by-id/ata-" "" | replaceAll "-part1" "" }}
+            {{ else }}
+              -
+            {{ end }}
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+
+    {{ end }}
