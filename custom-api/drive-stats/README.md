@@ -1,17 +1,24 @@
 # Drive Stats
 ---
+> [!NOTE]
+>
+> Requires Middleware API.
 
-#### row=1
+#### `row=1`
 ![drive-stats](../../screenshots/drive-stats.png)
+
+#### `row=2`
+```yml
+ url: https:${MY_WEBSERVER_URL}/api/get-drive-stats?host=host1&row=2
+```
+![drive-stats-2-row](../../screenshots/drive-stats-2-rows.png)
 
 
 Hover:
 
 ![drive-stats-hover](../../screenshots/drive-stats-hover.png)
 
-This requires a web server which isn't provided.
-
-However, the template can still be used. Expected API return is:
+Expected Middleware API return:
 ```json
 [
     {
@@ -26,9 +33,3 @@ However, the template can still be used. Expected API return is:
     },
 ]
 ```
-
-#### row=2
-```yml
- url: https:${MY_WEBSERVER_URL}/api/get-drive-stats?host=host1&row=2
-```
-![drive-stats-2-row](../../screenshots/drive-stats-2-rows.png)

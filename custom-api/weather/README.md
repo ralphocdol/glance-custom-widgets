@@ -1,5 +1,9 @@
 # Weather Widget Card
 ---
+> [!NOTE]
+>
+> Requires Middleware API.
+
 ![proxmox-widget-card](../../screenshots/weather-animated.webp)
 
 ### Weather Data
