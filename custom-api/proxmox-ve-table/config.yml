@@ -1,0 +1,113 @@
+- type: custom-api
+  cache: 1s
+  hide-header: true
+  frameless: true
+  css-class: widget-exclude-swipe glimpsable-custom-list
+  url: https:${PROXMOXVE_URL}/api2/json/cluster/resources
+  options:
+    collapse-after: 15
+  headers:
+    Accept: application/json
+    Authorization: PVEAPIToken=${PROXMOXVE_KEY}
+  template: |
+    {{ $collapseAfter := .Options.IntOr "collapse-after" 5 }}
+    <div responsive-table paginate row-limit="15" row-limit-mobile="5" glimpse-list>
+      <!-- Header row -->
+      <div table-header class="gap-10 items-center">
+        <div sortable sort-default-asc data-width="2">ID</div>
+        <div sortable>Type</div>
+        <div sortable data-width="2">Name</div>
+        <div sortable>Uptime</div>
+        <div sortable>CPU Usage</div>
+        <div sortable>Memory Usage</div>
+        <div sortable>Disk Usage</div>
+      </div>
+
+      <div table-body class="list collapsible-container" data-collapse-after="{{ $collapseAfter }}">
+        {{ range .JSON.Array "data" | sortByInt "vmid" "asc" }}
+        {{ if and (ne (.String "type") "lxc") (ne (.String "type") "qemu") }}{{ continue }}{{ end }}
+        {{ if ne (.Int "template") 0 }}{{ continue }}{{ end }}
+        {{ $isRunning := eq (.String "status") "running" }}
+
+        <!-- Data rows -->
+        <div table-row class="gap-10 items-center {{ if $isRunning }}color-base{{ else }}color-subdue{{ end }}" glimpse-item>
+          <div>
+            <span>{{ .String "vmid" }}</span>
+          </div>
+
+          <div data-show-on-mobile>{{ .String "type" }}</div>
+
+          <div data-as-mobile-title>
+            <a class="items-center gap-7 min-width-0 {{ if $isRunning }}color-highlight{{ else }}color-subdue{{ end }}" target="_blank" href="${PROXMOXVE_URL}/#v1:0:={{ .String "id" }}">
+              <span style="display: inline-block; width: 8px; height: 8px; background: var({{ if $isRunning }}--color-positive{{ else }}--color-negative{{ end }}); border-radius: 100%;"></span>
+              <span>{{ .String "name" }}</span>
+            </a>
+          </div>
+
+          {{ $uptime := (.Int "uptime") }}
+          <div data-show-on-mobile class="{{ if not $isRunning }}color-negative{{ end }}" data-to-sort="{{ if $isRunning }}{{ $uptime }}{{ else }}-1{{ end }}">
+            {{ if $isRunning }}
+              {{ $day := div $uptime 86400 }}
+              {{ $remaining := (sub $uptime (mul $day 86400))}}
+              {{ $hour := div $remaining 3600 }}
+              {{ $minute := (div (sub $remaining (mul $hour 3600)) 60) }}
+              {{ $dayText := " day " }}
+              {{ if gt $day 1 }}
+                {{ $dayText = " days "}}
+              {{ end }}
+              <span>{{ concat ($day | formatNumber) $dayText ($hour | printf "%02d") ":" ($minute | printf "%02d") }}</span>
+            {{ else }}
+              <span>{{ .String "status" }}</span>
+            {{ end }}
+          </div>
+
+          <div data-to-sort="{{ if $isRunning }}{{ .Float "cpu" }}{{ else }}-1{{ end }}">
+            <div>
+              {{ if $isRunning }}
+              <span class="color-highlight">{{ mul (.Float "cpu") 100 | toInt | formatNumber }}</span><span class="affix color-base">%</span>
+              of <span class="color-highlight">{{ .Int "maxcpu" }}</span> CPUs
+              {{ else }}
+              <span>-</span>
+              {{ end }}
+            </div>
+          </div>
+
+          <div data-to-sort="{{ if $isRunning }}{{ .Int "mem" }}{{ else }}-1{{ end }}">
+            <div>
+              <span>
+                {{ if $isRunning }}
+                <span class="color-highlight">{{ mul (div (.Int "mem" | toFloat) (.Int "maxmem" | toFloat)) 100 | toInt }}</span><span class="affix color-base">%</span>
+                {{ else }}
+                <span>-</span>
+                {{ end }}
+              </span>
+              {{ if $isRunning }}
+              <span>
+                <span class="item-value">{{ div (.Int "mem" | toFloat) 1048576 | printf "%.f" | formatNumber }}</span>MB
+              </span>
+              {{ end }}
+            </div>
+          </div>
+
+          <div data-to-sort="{{ if $isRunning }}{{ .Int "disk" }}{{ else }}-1{{ end }}" data-as-collapsed-column>
+            <div>
+              <span>
+                {{ if $isRunning }}
+                <span class="color-highlight">{{ mul (div (.Int "disk" | toFloat) (.Int "maxdisk" | toFloat)) 100 | toInt }}</span><span class="affix color-base">%</span>
+                {{ else }}
+                <span>-</span>
+                {{ end }}
+              </span>
+              {{ if $isRunning }}
+              <span>
+                <span class="item-value">{{ div (.Int "disk" | toFloat) 1073741824 | printf "%.2f" | formatNumber }}</span>GB
+              </span>
+              {{ end }}
+            </div>
+          </div>
+
+        </div>
+
+        {{ end }}
+      </div> 
+    </div> 
