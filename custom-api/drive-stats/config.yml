@@ -1,5 +1,4 @@
 - type: custom-api
-  css-class: widget-no-title
   url: https:${MY_WEBSERVER_URL}/api/get-drive-stats?host=host1.com:22:nextcloud&host=host.com:22:alias2&row=2
   headers:
     Accept: application/json
