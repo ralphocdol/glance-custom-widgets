@@ -3,7 +3,7 @@
   hide-header: true
   frameless: true
   css-class: widget-exclude-swipe glimpsable-custom-list
-  url: https:${PROXMOXVE_URL}/api2/json/cluster/resources
+  url: https://${PROXMOXVE_URL}/api2/json/cluster/resources
   options:
     collapse-after: 15
   headers:
@@ -38,7 +38,7 @@
           <div data-show-on-mobile>{{ .String "type" }}</div>
 
           <div data-as-mobile-title>
-            <a class="items-center gap-7 min-width-0 {{ if $isRunning }}color-highlight{{ else }}color-subdue{{ end }}" target="_blank" href="${PROXMOXVE_URL}/#v1:0:={{ .String "id" }}">
+            <a class="items-center gap-7 min-width-0 {{ if $isRunning }}color-highlight{{ else }}color-subdue{{ end }}" target="_blank" href="//${PROXMOXVE_URL}/#v1:0:={{ .String "id" }}">
               <span style="display: inline-block; width: 8px; height: 8px; background: var({{ if $isRunning }}--color-positive{{ else }}--color-negative{{ end }}); border-radius: 100%;"></span>
               <span>{{ .String "name" }}</span>
             </a>

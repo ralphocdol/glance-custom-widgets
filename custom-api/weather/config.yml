@@ -1,10 +1,10 @@
 - type: custom-api
   title: Weather
   cache: 1s
-  url: https:${WEBSERVER_URL}/api/home-assistant-entities?entity=weather.cloned_weather_home&entity=sensor.room_temperature&entity=sensor.living_room_temperature
+  url: https://${WEBSERVER_URL}/api/home-assistant-entities?entity=weather.cloned_weather_home&entity=sensor.room_temperature&entity=sensor.living_room_temperature
   headers:
     Accept: application/json
-    api-url: http:${HOMEASSISTANT_URL}
+    api-url: http://${HOMEASSISTANT_URL}
     api-token: ${HOMEASSISTANT_KEY}
   template: |
     <div class="flex flex-column gap-5">
