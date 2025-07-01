@@ -4,7 +4,7 @@
 >
 > Requires Middleware API.
 
-![proxmox-widget-card](../../screenshots/weather-animated.webp)
+![proxmox-widget-card](preview1.webp)
 
 ### Weather Data
 Came from Open-Meteo using Home Assistant
