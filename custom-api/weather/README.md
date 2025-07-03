@@ -16,35 +16,6 @@ Came from Open-Meteo using Home Assistant
 ### Weather Icons
 Source: https://github.com/Makin-Things/weather-icons
 
-Icons and state doesn't usually match so I had to do something on my middleware, it's not complete yet, but it is a start:
-```js
-// "date" based on "last_changed" from Home Assistant's API
-const weatherIconMapping = (state, date) => {
-    const hour = getHours(addHours(date, 8));
-    const isDay = hour >= 6 && hour < 18; // 6am to 6pm
-    const phase = isDay ? 'day' : 'night';
-    if (state.includes('clear')) {
-        return `clear-${phase}`
-    } else if (state.includes('cloudy')) {
-        return `cloudy-3-${phase}`;
-    } else if (state.includes('rainy')) {
-        return `rainy-3-${phase}`;
-    } else if (state.includes('fog')) {
-        return `fog-${phase}`;
-    } else if (state.includes('isolated-thunderstorms')) {
-        return `isolated-thunderstorms-${phase}`;
-    } else if (state.includes('scattered-thunderstorms')) {
-        return `scattered-thunderstorms-${phase}`;
-    } else if (state.includes('lightning')) {
-        return `thunderstorms`;
-    } else if (state.includes('sunny')) {
-        return `clear-day`;
-    }
-
-    return state;
-}
-```
-
 ### Sample API output
 ```json
 [
