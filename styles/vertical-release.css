@@ -1,0 +1,63 @@
+/* Can be reused for other api, check the template that uses this */
+
+.vertical-release-layout .release-cover {
+  width: 8rem;
+  max-width: 8rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.vertical-release-layout > .release-cover-popover {
+  width: 25rem;
+  max-width: 25rem;
+  height: 35rem;
+}
+
+.vertical-release-layout .release-cover.placeholder {
+  width: 8rem;
+  max-width: 8rem;
+  overflow: hidden;
+}
+
+.vertical-release-layout .release-data {
+  height: 12rem;
+  position: relative;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+
+.vertical-release-layout .release-data > .release-status {
+  position: absolute;
+  bottom: 12px;
+}
+
+.vertical-release-layout .release-data > .release-status > .bookmarks-link {
+  margin-top: 5px;
+  white-space: nowrap;
+}
+
+.vertical-release-layout .release-label {
+  color: var(--color-negative);
+  font-weight: bold;
+  padding: 2px 10px;
+  border: 1px solid var(--color-negative);
+  border-radius: 3px;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.vertical-release-layout .release-label span {
+  display: inline-block;
+}
+
+.vertical-release-layout .release-label.missing {
+  color: var(--color-negative);
+  border: 1px solid var(--color-negative);
+}
+
+.vertical-release-layout .release-label.grabbed {
+  color: var(--color-positive);
+  border: 1px solid var(--color-positive);
+}
