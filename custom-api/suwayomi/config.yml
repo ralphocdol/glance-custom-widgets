@@ -1,0 +1,93 @@
+- type: custom-api
+  title: Manga
+  title-url: //${SUWAYOMI_URL}
+  url: https://${SUWAYOMI_URL}/api/graphql
+  method: post
+  headers:
+    Accept: application/json
+  cache: 5s
+  body:
+    operationName: AllCategories
+    query: |
+      query AllCategories {
+        mangas(filter: {inLibrary: {equalTo: true}}) {
+          nodes {
+            id
+            title
+            thumbnailUrl
+            status
+            lastFetchedAt
+            unreadCount
+            genre
+            author
+            artist
+            latestFetchedChapter {
+              name
+              chapterNumber
+              fetchedAt
+              sourceOrder
+              isRead
+            }
+            source {
+              name
+              iconUrl
+            }
+          }
+        }
+      }
+  options:
+    collapse-after: 3
+    limit: 10
+  template: | #html
+    {{ $collapseAfter := .Options.IntOr "collapse-after" 5 }}
+    {{ $limit := .Options.IntOr "limit" 5 }}
+    
+    <ul class="list list-gap-14 collapsible-container single-line-titles vertical-release-layout" data-collapse-after="{{ $collapseAfter }}">
+
+      {{ $data := .JSON.Array "data.mangas.nodes.#(latestFetchedChapter.isRead==false)#" | sortByInt "latestFetchedChapter.fetchedAt" "desc" }}
+      
+      {{ if eq (len ($data)) 0 }}
+        <li>No manga!</li>
+      {{ end }}
+      
+      {{ range $index, $_ := $data }}
+      {{ if ge $index $limit }}{{ break }}{{ end }}
+
+      {{ $coverUrl := concat "//${SUWAYOMI_URL}" (.String "thumbnailUrl") }}
+      {{ $mangaUrl := concat "//${SUWAYOMI_URL}/manga/" (.String "id") }}
+      {{ $chapterUrl := concat $mangaUrl "/chapter/" (.String "latestFetchedChapter.sourceOrder") }}
+
+      <li class="flex gap-10 items-start thumbnail-container thumbnail-parent">
+        <div class="release-cover-popover" data-popover-type="html" data-popover-position="above" data-popover-show-delay="500">
+          <div data-popover-html>
+            <a href="{{ $coverUrl }}" target="_blank">
+              <img class="release-cover-popover thumbnail" src="{{ $coverUrl }}" alt="Cover for {{ .String "title" }}" loading="lazy">
+            </a>
+          </div>
+          <img class="release-cover thumbnail" src="{{ $coverUrl }}" alt="Cover for {{ .String "title" }}" loading="lazy">
+        </div>
+        <div class="flex-1 min-width-0 release-data">
+          <strong class="size-h4 block text-truncate color-primary" title="{{ .String "title" }}">{{ .String "title" }}</strong>
+          <div class="text-truncate text-very-compact">
+            <span {{ .String "latestFetchedChapter.fetchedAt" | parseTime "unix" | toRelativeTime }}></span>
+            <span class="color-subdue"> • </span>
+            <span>{{ (.String "latestFetchedChapter.fetchedAt" | parseTime "unix").Format "01/02 03:04PM" }}</span>
+          </div>
+          <div class="flex gap-5 text-truncate size-h5 items-center">
+            <div data-popover-type="html" data-popover-position="above" data-popover-show-delay="500">
+              <div data-popover-html>
+                <img src="{{ concat "//${SUWAYOMI_URL}" (.String "source.iconUrl") }}" alt="{{ .String "source.name" }}" loading="lazy" />
+              </div>
+              <img src="{{ concat "//${SUWAYOMI_URL}" (.String "source.iconUrl") }}" style="width: 20px; height: 100%;" alt="{{ .String "source.name" }}" loading="lazy" />
+            </div>
+            <span>{{ .String "source.name" }}</span>
+          </div>
+          <div class="flex gap-10 items-center release-status" title="{{ .String "latestFetchedChapter.name" }}">
+            <a href="{{ $chapterUrl }}" class="bookmarks-link size-h4 release-label grabbed" target="_blank" rel="noreferrer">
+              <span style="min-width: 10rem;">Chapter {{ .String "latestFetchedChapter.chapterNumber" }}</span>
+            </a>
+          </div>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
