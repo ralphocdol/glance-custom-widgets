@@ -1,0 +1,114 @@
+- type: custom-api
+  cache: 1s
+  frameless: true
+  title: Beszel System
+  title-url: //${BESZEL_URL}
+  url: https://${BESZEL_URL}/api/collections/systems/records
+  headers:
+    Authorization: Bearer ${BESZEL_TOKEN}
+  template: | #html
+    <div responsive-table paginate row-limit="10" row-limit-mobile="3">
+      <div table-header>
+        <div sortable sort-default-asc data-width="3">System</div>
+        <div sortable data-width="2">CPU</div>
+        <div sortable>Memory</div>
+        <div sortable>Disk</div>
+        <div sortable>Network</div>
+        <div sortable>Temperature</div>
+        <div sortable>Uptime</div>
+        <div>Agent</div>
+        <div>Host</div>
+        <div>Hostname</div>
+        <div>Created Date</div>
+        <div>Updated Date</div>
+      </div>
+      <div table-body>
+        {{ range .JSON.Array "items" }}
+        {{ $isRunning := eq (.String "status") "up" }}
+        <div table-row>
+          <div data-to-sort="{{ .String "name" }}">
+            {{ .String "name" }}
+          </div>
+
+          <div data-show-on-mobile data-to-sort="{{ .Float "info.cpu" }}">
+            <div class="with-progress-bar">
+              <div class="flex">
+                <div class="flex-1">
+                  <span>{{ .Float "info.cpu" }}</span><span class="unit-suffix">%</span>
+                </div>
+                <div class="flex-1 text-right" hide-on-mobile>
+                  <span>{{ .Int "info.c" }}</span><span class="unit-suffix">C</span><span>/</span><span>{{ .Int "info.t" }}</span><span class="unit-suffix">T</span>
+                </div>
+              </div>
+              <div class="progress-bar" hide-on-mobile>
+                <div class="progress-value{{ if ge (.Int "info.cpu") 65 }} progress-value-notice{{ end }}" style="--percent: {{ .Int "info.cpu" }}"></div>
+              </div>
+            </div>
+          </div>
+
+          <div data-show-on-mobile data-to-sort="{{ .Float "info.mp" }}">
+            <div class="with-progress-bar">
+              <div class="flex">
+                <div class="flex-1">
+                  <span>{{ .Float "info.mp" }}</span><span class="unit-suffix">%</span>
+                </div>
+              </div>
+              <div class="progress-bar" hide-on-mobile>
+                <div class="progress-value{{ if ge (.Int "info.mp") 65 }} progress-value-notice{{ end }}" style="--percent: {{ .Int "info.mp" }}"></div>
+              </div>
+            </div>
+          </div>
+
+          <div data-to-sort="{{ .Float "info.dp" }}">
+            <div class="with-progress-bar">
+              <div class="flex">
+                <div class="flex-1">
+                  <span>{{ .Float "info.dp" }}</span><span class="unit-suffix">%</span>
+                </div>
+              </div>
+              <div class="progress-bar" hide-on-mobile>
+                <div class="progress-value{{ if ge (.Int "info.dp") 65 }} progress-value-notice{{ end }}" style="--percent: {{ .Int "info.dp" }}"></div>
+              </div>
+            </div>
+          </div>
+
+          <div data-to-sort="{{ .Float "info.b" }}">
+            <div>
+              <span>{{ printf "%.2f" (.Float "info.b") }}</span><span class="unit-suffix">MB/s</span>
+            </div>
+          </div>
+
+          <div data-show-on-mobile data-to-sort="{{ .Float "info.dt" }}">
+            <div>
+            {{ if eq (.Int "info.dt") 0 }}-{{ else }}
+              <span>{{ .Int "info.dt" }}</span><span class="unit-suffix">°C</span>
+            {{ end }}
+            </div>
+          </div>
+
+          {{ $uptime := (.Int "info.u") }}
+          <div data-show-on-mobile class="{{ if not $isRunning }}color-negative{{ end }}" data-to-sort="{{ if $isRunning }}{{ $uptime }}{{ else }}-1{{ end }}">
+            <span hide-on-mobile style="display: inline-block; width: 8px; height: 8px; background: var({{ if $isRunning }}--color-positive{{ else }}--color-negative{{ end }}); border-radius: 100%;"></span>
+            {{ if $isRunning }}
+              {{ $day := div $uptime 86400 }}
+              {{ $remaining := (sub $uptime (mul $day 86400))}}
+              {{ $hour := div $remaining 3600 }}
+              {{ $minute := (div (sub $remaining (mul $hour 3600)) 60) }}
+              {{ $dayText := " day " }}
+              {{ if gt $day 1 }}
+                {{ $dayText = " days "}}
+              {{ end }}
+              <span>{{ concat ($day | formatNumber) $dayText ($hour | printf "%02d") ":" ($minute | printf "%02d") }}</span>
+            {{ end }}
+          </div>
+
+          <div data-as-collapsed-column>{{ .String "info.v" }}</div>
+          <div data-as-collapsed-column>{{ .String "host" }}</div>
+          <div data-as-collapsed-column>{{ .String "info.h" }}</div>
+
+          <div data-as-collapsed-column>{{ .String "created" | parseTime "2006-01-02 15:04:05.999999999Z" | formatTime "Mon 02 | 03:04pm" }}</div>
+          <div data-as-collapsed-column>{{ .String "updated" | parseTime "2006-01-02 15:04:05.999999999Z" | formatTime "Mon 02 | 03:04pm" }}</div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
