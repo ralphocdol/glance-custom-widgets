@@ -1,9 +1,14 @@
 - type: custom-api
-  url: https://${MY_WEBSERVER_URL}/api/get-drive-stats?host=host1.com:22:nextcloud&host=host.com:22:alias2&row=2
+  url: https://${MY_WEBSERVER_URL}/api/get-drive-stats
+  parameters:
+    host:
+      - host1.com:22:nextcloud
+      - host.com:22:alias2
+    row: 2
   headers:
     Accept: application/json
   cache: 1s
-  template: |
+  template: | #html
     <div class="flex flex-column gap-5">
       <div class="services-title">
         <div class="flex gap-20 items-center">
@@ -20,7 +25,7 @@
               <div class="color-highlight text-very-compact">{{ .String "0.host" }}</div>
             </div>
             <div class="flex justify-between items-end size-h5">
-              <div class="uppercase">{{ .String "0.alias" }}</div>
+              <div class="text-truncate">{{ .String "0.alias" }}</div>
               <div class="color-highlight text-very-compact">
                 {{ .Int "0.use_percent" }} <span class="color-base">%</span>
               </div>
@@ -31,10 +36,10 @@
               <ul class="list list-gap-2">
                 {{ range .Array "" }}
                 <li class="flex">
-                  <div class="size-h5">{{ .String "filesystem" }}</div>
+                  <div class="size-h5 text-truncate">{{ .String "filesystem" }}</div>
                   <div class="value-separator"></div>
                   <div class="color-highlight text-very-compact">
-                      {{ .String "used" }} <span class="color-base size-h5">/</span> {{ .String "size" }}
+                      {{ .String "used" }}<span class="color-base size-h5">/</span>{{ .String "size" }}
                   </div>
                 </li>
                 {{ end }}
