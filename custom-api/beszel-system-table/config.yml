@@ -1,12 +1,30 @@
 - type: custom-api
-  cache: 1s
+  cache: 1m
   frameless: true
   title: Beszel System
   title-url: //${BESZEL_URL}
-  url: https://${BESZEL_URL}/api/collections/systems/records
-  headers:
-    Authorization: Bearer ${BESZEL_TOKEN}
+  options:
+    auth-body:
+      identity: ${BESZEL_USER}
+      password: ${BESZEL_PASS}
   template: | #html
+    {{
+      $auth := newRequest "https://${BESZEL_URL}/api/collections/users/auth-with-password"
+        | withHeader "Accept" "application/json"
+        | withHeader "Content-Type" "application/json"
+        | withStringBody (.Options.JSON "auth-body")
+        | getResponse
+    }}
+    
+    {{ $authorization := concat "Bearer " ($auth.JSON.String "token") }}
+    
+    {{
+      $records := newRequest "https://${BESZEL_URL}/api/collections/systems/records"
+        | withHeader "Content-Type" "application/json"
+        | withHeader "Authorization" $authorization
+        | getResponse
+    }}
+
     <div responsive-table paginate row-limit="10" row-limit-mobile="3">
       <div table-header>
         <div sortable sort-default-asc data-width="3">System</div>
@@ -23,7 +41,7 @@
         <div>Updated Date</div>
       </div>
       <div table-body>
-        {{ range .JSON.Array "items" }}
+        {{ range $records.JSON.Array "items" }}
         {{ $isRunning := eq (.String "status") "up" }}
         <div table-row>
           <div data-to-sort="{{ .String "name" }}">
