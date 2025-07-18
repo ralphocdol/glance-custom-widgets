@@ -18,9 +18,9 @@
   template: | #html
     {{ $hour := now.Hour }}
     {{ $isDay := and (ge $hour 6) (lt $hour 18) }}
-    {{ $phase := "day" }}
-    {{ if not $isDay }}
-      {{ $phase := "night" }}
+    {{ $phase := "night" }}
+    {{ if $isDay }}
+      {{ $phase := "day" }}
     {{ end }}
 
     {{ $weatherState := .JSON.String "state" }}
@@ -55,17 +55,17 @@
       </div>
       <div class="flex justify-between text-center">
         <div class="shrink min-width-0">
-            <div class="color-highlight size-h4 weather-temperature">{{ .JSON.Float "attributes.temperature" | formatNumber }}{{ .JSON.String "attributes.temperature_unit" }}</div>
+            <div class="color-highlight size-h4 weather-temperature">{{ .JSON.Float "attributes.temperature" | printf "%.1f" }}{{ .JSON.String "attributes.temperature_unit" }}</div>
             <div class="text-very-compact uppercase">Weather</div>
         </div>
         {{ $bedroomEntity := .Subrequest "bedroom" }}
         <div class="shrink min-width-0 target-gone">
-            <div class="color-highlight size-h4 bedroom-temperature">{{ $bedroomEntity.JSON.Float "state" | formatNumber }}{{ $bedroomEntity.JSON.String "unit_of_measurement" }}</div>
+            <div class="color-highlight size-h4 bedroom-temperature">{{ $bedroomEntity.JSON.Float "state" | printf "%.1f" }}{{ $bedroomEntity.JSON.String "unit_of_measurement" }}</div>
             <div class="text-very-compact uppercase">Bedroom</div>
         </div>
         {{ $livingRoomEntity := .Subrequest "living-room" }}
         <div class="shrink min-width-0">
-            <div class="color-highlight size-h4 living-room-temperature">{{ $livingRoomEntity.JSON.Float "state" | formatNumber }}{{ $livingRoomEntity.JSON.String "unit_of_measurement" }}</div>
+            <div class="color-highlight size-h4 living-room-temperature">{{ $livingRoomEntity.JSON.Float "state" | printf "%.1f" }}{{ $livingRoomEntity.JSON.String "unit_of_measurement" }}</div>
             <div class="text-very-compact uppercase">Living Room</div>
         </div>
       </div>
