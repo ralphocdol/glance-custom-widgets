@@ -31,7 +31,7 @@
     font-weight: bolder;
 }
 
-.widget-content-frameless .expand-toggle-button {
+.widget-content-frameless .expand-toggle-button:not(.container-expanded) {
   background: unset;
 }
 /* #endregion ============================================= */
