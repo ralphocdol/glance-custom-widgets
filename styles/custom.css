@@ -1,0 +1,102 @@
+/* #region: Global class that may not exist by default */
+.display-contents       { display: contents; }
+.display-ruby           { display: ruby; }
+.display-block-ruby     { display: block ruby; }
+.display-none           { display: none; }
+.capitalize             { text-transform: capitalize; }
+.font-weight-bold       { font-weight: bold; }
+.font-weight-bolder     { font-weight: bolder; }
+.overflow-y-auto        { overflow-y: auto; }
+.content-center         { align-content: center; }
+.content-top            { align-content: flex-start; }
+.content-bottom         { align-content: flex-end; }
+.text-justify           { text-align: justify; }
+.strikethrough          { text-decoration: line-through; }
+/* #endregion ============================================= */
+
+
+
+
+
+
+/* #region: The arrow collapse/expand button on collapsible list */
+.expand-toggle-button {
+    font-size: 0;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.expand-toggle-button-icon::before {
+    font-size: 1rem;
+    font-weight: bolder;
+}
+
+.widget-content-frameless .expand-toggle-button {
+  background: unset;
+}
+/* #endregion ============================================= */
+
+
+
+
+
+
+/* #region: Progress bar overrides */
+
+.progress-bar {
+    height: 1.25rem;
+}
+
+.progress-bar-combined {
+    height: 2.5rem;
+}
+
+.progress-value-notice-low {
+    background: linear-gradient(to right, var(--color-progress-value) 65%, var(--color-positive));
+}
+
+.progress-value-good {
+    background: linear-gradient(to right, var(--color-progress-value) 30%, var(--color-positive));
+}
+
+.progress-value-bad {
+    background: linear-gradient(to right, var(--color-progress-value) 0%, var(--color-negative));
+}
+
+.progress-value {
+    transition: width 0.5s ease-in-out;
+}
+/* #endregion ============================================= */
+
+
+
+
+
+
+/* #region: Unit suffix, like % */
+.unit-suffix {
+    font-size: 1rem;
+    color: var(--color-text-base);
+}
+/* #endregion ============================================= */
+
+
+
+
+
+
+/* #region: Grid style similar to Homepage */
+
+.grid-style {
+    gap: 1rem;
+}
+
+.grid-style > * {
+    background: hsla(var(--bghs), calc(var(--scheme) (var(--scheme) var(--bgl) + 12%)), 0.4);
+    padding: 2px 10px;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    flex: 1;
+    white-space: nowrap;
+}
+/* #endregion ============================================= */
