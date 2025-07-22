@@ -57,8 +57,8 @@
       {{ $mangaUrl := concat "//${SUWAYOMI_URL}/manga/" (.String "id") }}
       {{ $chapterUrl := concat $mangaUrl "/chapter/" (.String "latestFetchedChapter.sourceOrder") }}
 
-      <li class="flex gap-10 items-start thumbnail-container thumbnail-parent">
-        <div class="release-cover-popover" data-popover-type="html" data-popover-position="above" data-popover-show-delay="500">
+      <li class="flex gap-10 items-start">
+        <div class="release-cover-popover thumbnail-container" data-popover-type="html" data-popover-position="above" data-popover-show-delay="500">
           <div data-popover-html>
             <a href="{{ $coverUrl }}" target="_blank">
               <img class="release-cover-popover thumbnail" src="{{ $coverUrl }}" alt="Cover for {{ .String "title" }}" loading="lazy">
@@ -84,7 +84,7 @@
           </div>
           <div class="flex gap-10 items-center release-status" title="{{ .String "latestFetchedChapter.name" }}">
             <a href="{{ $chapterUrl }}" class="bookmarks-link size-h4 release-label grabbed" target="_blank" rel="noreferrer">
-              <span style="min-width: 10rem;">Chapter {{ .String "latestFetchedChapter.chapterNumber" }}</span>
+              <span style="min-width: 10.5rem;">Chapter {{ .String "latestFetchedChapter.chapterNumber" }}</span>
             </a>
           </div>
         </div>

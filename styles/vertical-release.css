@@ -6,7 +6,7 @@
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   height: 12rem;
   object-fit: cover;
-  border-radius: 0.5rem;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
 }
 
 .vertical-release-layout > .release-cover-popover {
@@ -64,4 +64,7 @@
 
 .vertical-release-layout > li {
   background: var(--color-widget-background);
+	border-radius: var(--border-radius);
+	border: 1px solid var(--color-separator);
+  box-shadow: 0px 3px 0px 0px hsl(var(--bghs), calc(var(--scheme) (var(--scheme) var(--bgl)) - 0.5%));
 }
