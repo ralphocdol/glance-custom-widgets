@@ -25,7 +25,7 @@
   height: 12rem;
   position: relative;
   padding-top: 5px;
-  padding-right: 5px;
+  padding-right: var(--widget-content-horizontal-padding);
 }
 
 .vertical-release-layout .release-data > .release-status {
