@@ -2,7 +2,7 @@
   cache: 30m
   url: https://${OMV_URL}/rpc.php
   css-class: glimpsable-custom
-  title: Open Media Vault
+  title: Open Media Vault Drives
   frameless: true
   headers:
     Accept: application/json
@@ -19,7 +19,7 @@
       params:
         start: 0
         limit: 10
-  template: |
+  template: | #html
     $include: /app/config/defines/errorMsg.gohtml
 
     {{ $sessionId := .JSON.String "response.sessionid" }}
@@ -53,14 +53,14 @@
         <div table-row>
           <div data-as-mobile-title>{{ .String "devicename" }}</div>
           <div data-show-on-mobile>{{ .String "type" }}</div>
-          <div data-to-sort="{{ .Int "percentage" }}">
-            <div style="padding: 5px 20px 5px 3px; line-height: normal;">
+          <div data-to-sort="{{ .Int "percentage" }}" data-show-on-mobile>
+            <div class="with-progress-bar">
               <div class="flex">
-                <div class="flex-1">
-                  <span class="color-highlight">{{ .Int "percentage" }}</span><span class="color-base">%</span>
+                <div class="" style="flex: 0 0 65%;">
+                  <span class="color-highlight">{{ .Int "percentage" }}</span><span class="unit-suffix">%</span>
                 </div>
-                <div class="flex-1 text-right">
-                  <span>{{ div (sub (.Float "size") (.Float "available")) 1073741824 | printf "%.2f" | formatNumber }}</span><span class="color-base">GB</span>
+                <div class="text-right" style="flex: 0 0 35%;">
+                  <span class="color-highlight">{{ div (sub (.Float "size") (.Float "available")) 1073741824 | printf "%.2f" | formatNumber }}</span><span class="unit-suffix">GB</span>
                 </div>
               </div>
               <div class="progress-bar hide-on-mobile">
@@ -69,11 +69,11 @@
             </div>
           </div>
           <div data-to-sort="{{ .Float "available" }}">
-            <span class="color-highlight">{{ mul (div (.Float "available") (.Float "size")) 100 | toInt }}</span><span class="color-base">%</span>
-            <span>{{ div (.Float "available") 1073741824 | printf "%.2f" | formatNumber }}</span><span class="color-base">GB</span>
+            <span class="color-highlight">{{ mul (div (.Float "available") (.Float "size")) 100 | toInt }}</span><span class="unit-suffix">%</span>
+            <span>{{ div (.Float "available") 1073741824 | printf "%.2f" | formatNumber }}</span><span class="unit-suffix">GB</span>
           </div>
           <div data-to-sort="{{ .Float "size" }}">
-            <span>{{ div (.Float "size") 1073741824 | printf "%.2f" | formatNumber }}</span><span class="color-base">GB</span>
+            <span>{{ div (.Float "size") 1073741824 | printf "%.2f" | formatNumber }}</span><span class="unit-suffix">GB</span>
           </div>
           <div data-as-collapsed-column>
             {{ if ne (.String "uuid") "" }}
@@ -93,5 +93,4 @@
         {{ end }}
       </div>
     </div>
-
     {{ end }}

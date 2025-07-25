@@ -19,7 +19,7 @@
 }
 
 [responsive-table] .with-progress-bar {
-    padding: 5px 20px 5px 3px; 
+    padding: 5px 5px 5px 3px; 
     line-height: normal;
 }
 
