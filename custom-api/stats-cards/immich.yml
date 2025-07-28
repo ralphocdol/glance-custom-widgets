@@ -28,7 +28,7 @@
           {{ template "stat-label" "VIDEOS" }}
         </div>
         <div>
-          {{ template "stat-value" (concat (div (.JSON.Int "usage" | toFloat) 1073741824 | toInt | formatNumber) "GB") }}
+          {{ template "stat-value" (printf "%s<span style='color: var(--color-text-base);'>GB</span>" (div (.JSON.Int "usage" | toFloat) 1073741824 | toInt | formatNumber) | safeHTML) }}
           {{ template "stat-label" "USAGE" }}
         </div>
       </div>
