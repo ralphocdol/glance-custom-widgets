@@ -1,0 +1,35 @@
+- type: custom-api
+  cache: 1m
+  url: https://${IMMICH_URL}/api/server/statistics
+  css-class: glimpsable-custom
+  hide-header: true
+  headers:
+    x-api-key: ${IMMICH_KEY}
+    Accept: application/json
+  template: | #html
+    $include: _stat-template.gohtml
+    {{ template "main-container" }}
+      {{ template "link-container" "${IMMICH_URL}" }}
+        {{ template "header-container" }}
+          {{ template "logo" "${DASHBOARD_ICONS}/svg/immich.svg" }}
+          {{ template "title-container" }}
+            {{ template "title" "Immich" }}
+            <!-- {{ template "subtitle" "Photo Library" }} -->
+          </div>
+        </div>
+      </a>
+      {{ template "stat-container" }}
+        <div>
+          {{ template "stat-value" .JSON.Int "photos" | formatNumber }}
+          {{ template "stat-label" "PHOTOS" }}
+        </div>
+        <div>
+          {{ template "stat-value" .JSON.Int "videos" | formatNumber }}
+          {{ template "stat-label" "VIDEOS" }}
+        </div>
+        <div>
+          {{ template "stat-value" (concat (div (.JSON.Int "usage" | toFloat) 1073741824 | toInt | formatNumber) "GB") }}
+          {{ template "stat-label" "USAGE" }}
+        </div>
+      </div>
+    </div>
