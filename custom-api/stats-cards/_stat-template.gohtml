@@ -1,0 +1,43 @@
+{{ define "main-container" }}
+  <div class="monitor-site flex flex-column gap-7" glimpse-list>
+{{ end }}
+
+{{ define "link-container" }}
+  {{ if eq . "" }}
+    <a href="#">
+  {{ else }}
+    <a href="{{ . }}" target="_blank" rel="noreferrer">
+  {{ end }}
+{{ end }}
+
+{{ define "header-container" }}
+  <div class="flex gap-20 items-center">
+{{ end }}
+
+{{ define "logo" }}
+  <img class="monitor-site-icon" src="{{ . }}" loading="lazy" alt="">
+{{ end }}
+
+{{ define "title-container" }}
+  <div class="grow min-width-0" style="line-height: 1.3;">
+{{ end }}
+
+{{ define "title" }}
+  <span class="size-h3 color-highlight text-truncate block">{{ . }}</span>
+{{ end }}
+    
+{{ define "subtitle" }}  
+  <span class="size-h5 text-truncate block" style="color: var(--color-text-base-muted);">{{ . }}</span>
+{{ end }}
+
+{{ define "stat-container" }}
+  <div class="flex justify-between text-center stat-grid-style">
+{{ end }}
+
+{{ define "stat-value" }}
+  <div class="color-highlight size-h4">{{ . }}</div>
+{{ end }}
+
+{{ define "stat-label" }}
+  <div class="size-h5 uppercase">{{ . }}</div>
+{{ end }}

@@ -1,0 +1,48 @@
+- type: custom-api
+  title: Proxmox
+  cache: 1s
+  url: https://${PROXMOXVE_URL}/api2/json/cluster/resources
+  css-class: glimpsable-custom
+  hide-header: true
+  headers:
+    Accept: application/json
+    Authorization: PVEAPIToken=${PROXMOXVE_KEY}
+  template: | #html
+    $include: _stat-template.gohtml
+    {{ template "main-container" }}
+      {{ template "link-container" "${PROXMOXVE_URL}" }}
+        {{ template "header-container" }}
+          {{ template "logo" "${DASHBOARD_ICONS}/svg/proxmox.svg" }}
+          {{ template "title-container" }}
+            {{ template "title" "Proxmox VE" }}
+            <!-- {{ template "subtitle" "Hypervisor" }} -->
+          </div>
+        </div>
+      </a>
+      {{ template "stat-container" }}
+        {{ $nodes_online := len (.JSON.Array "data.#(type==\"node\")#|#(status==\"online\")#") | formatNumber }}
+        {{ $nodes_total := len (.JSON.Array "data.#(type==\"node\")#") }}
+        <div>
+          {{ template "stat-value" (concat $nodes_online "/" ($nodes_total | formatNumber)) }}
+          {{ template "stat-label" "Node" }}
+        </div>
+        <div>
+          {{ $lxc_running := len (.JSON.Array "data.#(type==\"lxc\")#|#(status==\"running\")#|#(template==0)#") | formatNumber }}
+          {{ $lxc_total := len (.JSON.Array "data.#(type==\"lxc\")#|#(template==0)#") | formatNumber }}
+          {{ template "stat-value" (concat $lxc_running "/" $lxc_total) }}
+          {{ template "stat-label" "LXC" }}
+        </div>
+        <div>
+          {{ $qemu_running := len (.JSON.Array "data.#(type==\"qemu\")#|#(status==\"running\")#|#(template==0)#") | formatNumber }}
+          {{ $qemu_total := len (.JSON.Array "data.#(type==\"qemu\")#|#(template==0)#") | formatNumber }}
+          {{ template "stat-value" (concat $qemu_running "/" $qemu_total) }}
+          {{ template "stat-label" "VM" }}
+        </div>
+        <div>
+          {{ $storage_available := len (.JSON.Array "data.#(type==\"storage\")#|#(status==\"available\")#") | formatNumber }}
+          {{ $storage_total := len (.JSON.Array "data.#(type==\"storage\")#") | formatNumber }}
+          {{ template "stat-value" (concat $storage_available "/" $storage_total) }}
+          {{ template "stat-label" "Storage" }}
+        </div>
+      </div>
+    </div>

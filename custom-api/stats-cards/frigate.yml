@@ -1,0 +1,31 @@
+- type: custom-api
+  title: Frigate
+  url: https://${FRIGATE_URL}/api/review/summary
+  css-class: glimpsable-custom
+  hide-header: true
+  allow-insecure: true
+  skip-tls-verify: true
+  cache: 1m
+  template: | #html
+    $include: _stat-template.gohtml
+    {{ template "main-container" }}
+      {{ template "link-container" "${FRIGATE_URL}" }}
+        {{ template "header-container" }}
+          {{ template "logo" "${DASHBOARD_ICONS}/svg/frigate-light.svg" }}
+          {{ template "title-container" }}
+            {{ template "title" "Frigate" }}
+            <!-- {{ template "subtitle" "NVR" }} -->
+          </div>
+        </div>
+      </a>
+      {{ template "stat-container" }}
+        <div>
+          {{ template "stat-value" .JSON.Int "last24Hours.total_alert" | formatNumber }}
+          {{ template "stat-label" "ALERT" }}
+        </div>
+        <div>
+          {{ template "stat-value" .JSON.Int "last24Hours.total_detection" | formatNumber }}
+          {{ template "stat-label" "DETECTION" }}
+        </div>
+      </div>
+    </div>
