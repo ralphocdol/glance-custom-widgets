@@ -1,6 +1,9 @@
 /* Grid style similar to Homepage */
 .stat-grid-style {
     gap: 1rem;
+    overflow-y: auto;
+    padding-bottom: 8px;
+    margin-bottom: -8px;
 }
 
 .stat-grid-style > * {
