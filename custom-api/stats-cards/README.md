@@ -4,7 +4,9 @@
 >
 > Requires [stat-grid-style.css](/styles/stat-grid-style.css)
 >
-> Compatibility with [Glimpse](https://github.com/ralphocdol/glance-micro-scripts/blob/main/glimpse/README.md)
+> Compatibility with:
+> - [Glimpse](https://github.com/ralphocdol/glance-micro-scripts/blob/main/glimpse/README.md)
+> - [Swipe Gesture](https://github.com/ralphocdol/glance-micro-scripts/blob/main/swipe-left-and-right/README.md)
 
 ## Screenshots
 ![desktop](preview1.png)
