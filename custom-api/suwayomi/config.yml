@@ -5,6 +5,7 @@
   method: post
   headers:
     Accept: application/json
+    # Authorization: Basic ${SUWAYOMI_AUTH} # base64 of username:password
   cache: 5s
   body:
     operationName: AllCategories
