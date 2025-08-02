@@ -5,6 +5,7 @@
   hide-header: true
   allow-insecure: true
   skip-tls-verify: true
+  skip-json-validation: true
   cache: 1m
   template: | #html
     $include: _stat-template.gohtml
@@ -14,18 +15,22 @@
           {{ template "logo" "${DASHBOARD_ICONS}/svg/frigate-light.svg" }}
           {{ template "title-container" }}
             {{ template "title" "Frigate" }}
-            <!-- {{ template "subtitle" "NVR" }} -->
+            <!-- {{ template "subtitle" "Security Camera System" }} -->
           </div>
         </div>
       </a>
       {{ template "stat-container" }}
-        <div>
-          {{ template "stat-value" .JSON.Int "last24Hours.total_alert" | formatNumber }}
-          {{ template "stat-label" "ALERT" }}
-        </div>
-        <div>
-          {{ template "stat-value" .JSON.Int "last24Hours.total_detection" | formatNumber }}
-          {{ template "stat-label" "DETECTION" }}
-        </div>
+        {{ if eq .Response.StatusCode 200 }}
+          <div>
+            {{ template "stat-value" .JSON.Int "last24Hours.total_alert" | formatNumber }}
+            {{ template "stat-label" "ALERT" }}
+          </div>
+          <div>
+            {{ template "stat-value" .JSON.Int "last24Hours.total_detection" | formatNumber }}
+            {{ template "stat-label" "DETECTION" }}
+          </div>
+        {{ else }}
+          {{ template "stat-fail" .Response.Status }}
+        {{ end }}
       </div>
     </div>

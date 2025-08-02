@@ -36,4 +36,9 @@ pages:
                   $include: paperless-ngx.yml
 ```
 
+## Error Handling
+If you're using properties like `url` or `subrequests`, you'd usually need to add `skip-json-validation: true` in each of them to avoid native error handling. But with the `custom-api` helper function `newRequest`, there's no built-in error handling to begin with—so that property isn't needed.
+
+---
+
 inspired by [Homepage](https://gethomepage.dev/)

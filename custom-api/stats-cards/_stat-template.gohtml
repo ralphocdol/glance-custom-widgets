@@ -35,9 +35,20 @@
 {{ end }}
 
 {{ define "stat-value" }}
-  <div class="color-highlight size-h4">{{ . }}</div>
+  <div class="color-highlight size-h4 text-truncate">{{ . }}</div>
+{{ end }}
+
+{{ define "stat-value-negative" }}
+  <div class="color-negative size-h4 text-truncate">{{ . }}</div>
 {{ end }}
 
 {{ define "stat-label" }}
-  <div class="size-h5 uppercase">{{ . }}</div>
+  <div class="size-h5 uppercase text-truncate">{{ . }}</div>
+{{ end }}
+
+{{ define "stat-fail" }}
+  <div>
+    {{ template "stat-value-negative" . }}
+    {{ template "stat-label" "ERROR" }}
+  </div>
 {{ end }}

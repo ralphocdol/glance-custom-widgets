@@ -11,6 +11,7 @@
     padding: 2px 4px;
     border-radius: var(--border-radius);
     font-size: 1rem;
-    flex: 1;
+    flex: 1 1 0;
     white-space: nowrap;
+    min-width: 0;
 }
