@@ -1,11 +1,12 @@
 - type: custom-api
-  cache: 1m
   url: https://${IMMICH_URL}/api/server/statistics
   css-class: glimpsable-custom
   hide-header: true
   headers:
     x-api-key: ${IMMICH_KEY}
     Accept: application/json
+  skip-json-validation: true
+  cache: 1m
   template: | #html
     $include: _stat-template.gohtml
     {{ template "main-container" }}
@@ -19,17 +20,21 @@
         </div>
       </a>
       {{ template "stat-container" }}
-        <div>
-          {{ template "stat-value" .JSON.Int "photos" | formatNumber }}
-          {{ template "stat-label" "PHOTOS" }}
-        </div>
-        <div>
-          {{ template "stat-value" .JSON.Int "videos" | formatNumber }}
-          {{ template "stat-label" "VIDEOS" }}
-        </div>
-        <div>
-          {{ template "stat-value" (printf "%s<span style='color: var(--color-text-base);'>GB</span>" (div (.JSON.Int "usage" | toFloat) 1073741824 | toInt | formatNumber) | safeHTML) }}
-          {{ template "stat-label" "USAGE" }}
-        </div>
+        {{ if eq .Response.StatusCode 200 }}
+          <div>
+            {{ template "stat-value" .JSON.Int "photos" | formatNumber }}
+            {{ template "stat-label" "PHOTOS" }}
+          </div>
+          <div>
+            {{ template "stat-value" .JSON.Int "videos" | formatNumber }}
+            {{ template "stat-label" "VIDEOS" }}
+          </div>
+          <div>
+            {{ template "stat-value" (printf "%s<span style='color: var(--color-text-base);'>GB</span>" (div (.JSON.Int "usage" | toFloat) 1073741824 | toInt | formatNumber) | safeHTML) }}
+            {{ template "stat-label" "USAGE" }}
+          </div>
+        {{ else }}
+          {{ template "stat-fail" .Response.Status }}
+        {{ end }}
       </div>
     </div>
