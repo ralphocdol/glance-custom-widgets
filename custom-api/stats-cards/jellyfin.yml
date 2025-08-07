@@ -12,17 +12,17 @@
     $include: _stat-template.gohtml
     {{ template "main-container" }}
       {{ $endpoint1_ok := and (ge .Response.StatusCode 200) (le .Response.StatusCode 299) }}
-      <div class="shrink-0" data-popover-type="html" data-popover-position="above" aria-hidden="true">
+      {{ template "status-badge-popover" }}
         <div data-popover-html>
-          <div class="flex">
-            <div class="size-h5">Endpoint</div>
-            <div class="value-separator"></div>
-            <div class="text-very-compact color-{{ if $endpoint1_ok }}positive{{ else }}negative{{ end }}">{{ .Response.Status }}</div>
+          <div class="flex gap-7">
+            {{ template "state-icon" $endpoint1_ok }}
+            {{ template "status-endpoint-label" }}
+            {{ template "status-endpoint-result" .Response.Status }}
           </div>
         </div>
         {{ template "status-badge" $endpoint1_ok }}
       </div>
-      {{ template "link-container" "${JELLYFIN_URL}" }}
+      {{ template "link-container" "//${JELLYFIN_URL}" }}
         {{ template "header-container" }}
           {{ template "logo" "${DASHBOARD_ICONS}/svg/jellyfin.svg" }}
           {{ template "title-container" }}
