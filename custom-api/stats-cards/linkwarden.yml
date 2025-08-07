@@ -36,23 +36,25 @@
         </div>
         {{ template "status-badge" (and $endpoint1_ok $endpoint2_ok) }}
       </div>
-      {{ template "link-container" "//${LINKWARDEN_URL}" }}
-        {{ template "header-container" }}
-          {{ template "logo" "${DASHBOARD_ICONS}/webp/linkwarden.webp" }}
-          {{ template "title-container" }}
-            {{ template "title" "Linkwarden" }}
-            {{ template "subtitle" "Bookmark Manager" }}
+      {{ template "layout-container" }}
+        {{ template "link-container" "//${LINKWARDEN_URL}" }}
+          {{ template "header-container" }}
+            {{ template "logo" "${DASHBOARD_ICONS}/webp/linkwarden.webp" }}
+            {{ template "title-container" }}
+              {{ template "title" "Linkwarden" }}
+              {{ template "subtitle" "Bookmark Manager" }}
+            </div>
           </div>
-        </div>
-      </a>
-      {{ template "stat-container" }}
-        <div>
-          {{ template "stat-value" ($collections.JSON.Array "response" | len) }}
-          {{ template "stat-label" "Collections" }}
-        </div>
-        <div>
-          {{ template "stat-value" ($tags.JSON.Array "response" | len) }}
-          {{ template "stat-label" "Tags" }}
+        </a>
+        {{ template "stat-container" }}
+          <div>
+            {{ template "stat-value" ($collections.JSON.Array "response" | len) }}
+            {{ template "stat-label" "Collections" }}
+          </div>
+          <div>
+            {{ template "stat-value" ($tags.JSON.Array "response" | len) }}
+            {{ template "stat-label" "Tags" }}
+          </div>
         </div>
       </div>
     </div>

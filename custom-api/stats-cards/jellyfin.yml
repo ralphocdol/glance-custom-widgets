@@ -22,31 +22,33 @@
         </div>
         {{ template "status-badge" $endpoint1_ok }}
       </div>
-      {{ template "link-container" "//${JELLYFIN_URL}" }}
-        {{ template "header-container" }}
-          {{ template "logo" "${DASHBOARD_ICONS}/svg/jellyfin.svg" }}
-          {{ template "title-container" }}
-            {{ template "title" "Jellyfin" }}
-            {{ template "subtitle" "Media Server" }}
+      {{ template "layout-container" }}
+        {{ template "link-container" "//${JELLYFIN_URL}" }}
+          {{ template "header-container" }}
+            {{ template "logo" "${DASHBOARD_ICONS}/svg/jellyfin.svg" }}
+            {{ template "title-container" }}
+              {{ template "title" "Jellyfin" }}
+              {{ template "subtitle" "Media Server" }}
+            </div>
           </div>
-        </div>
-      </a>
-      {{ template "stat-container" }}
-        <div>
-          {{ template "stat-value" .JSON.Int "MovieCount" | formatNumber }}
-          {{ template "stat-label" "MOVIES" }}
-        </div>
-        <div>
-          {{ template "stat-value" .JSON.Int "SeriesCount" | formatNumber }}
-          {{ template "stat-label" "SERIES" }}
-        </div>
-        <div>
-          {{ template "stat-value" .JSON.Int "EpisodeCount" | formatNumber }}
-          {{ template "stat-label" "EPISODES" }}
-        </div>
-        <div>
-          {{ template "stat-value" .JSON.Int "SongCount" | formatNumber }}
-          {{ template "stat-label" "SONGS" }}
+        </a>
+        {{ template "stat-container" }}
+          <div>
+            {{ template "stat-value" .JSON.Int "MovieCount" | formatNumber }}
+            {{ template "stat-label" "MOVIES" }}
+          </div>
+          <div>
+            {{ template "stat-value" .JSON.Int "SeriesCount" | formatNumber }}
+            {{ template "stat-label" "SERIES" }}
+          </div>
+          <div>
+            {{ template "stat-value" .JSON.Int "EpisodeCount" | formatNumber }}
+            {{ template "stat-label" "EPISODES" }}
+          </div>
+          <div>
+            {{ template "stat-value" .JSON.Int "SongCount" | formatNumber }}
+            {{ template "stat-label" "SONGS" }}
+          </div>
         </div>
       </div>
     </div>
