@@ -1,0 +1,58 @@
+- type: custom-api
+  title: Linkwarden
+  css-class: glimpsable
+  frameless: true
+  hide-header: true
+  headers:
+    Accept: application/json
+  cache: 5s
+  template: | #html
+    {{
+      $collections := newRequest "https://${LINKWARDEN_URL}/api/v1/collections"
+        | withHeader "Authorization" (concat "Bearer " "${LINKWARDEN_TOKEN}")
+        | getResponse
+    }}
+    {{
+      $tags := newRequest "https://${LINKWARDEN_URL}/api/v1/tags"
+        | withHeader "Authorization" (concat "Bearer " "${LINKWARDEN_TOKEN}")
+        | getResponse
+    }}
+    $include: _stat-template.gohtml
+    {{ template "main-container" }}
+      {{ $endpoint1_ok := and (ge $collections.Response.StatusCode 200) (le $collections.Response.StatusCode 299) }}
+      {{ $endpoint2_ok := and (ge $tags.Response.StatusCode 200) (le $tags.Response.StatusCode 299) }}
+      {{ template "status-badge-popover" }}
+        <div data-popover-html>
+          <div class="flex gap-7">
+            {{ template "state-icon" $endpoint1_ok }}
+            {{ template "status-endpoint-label" "Collections" }}
+            {{ template "status-endpoint-result" $collections.Response.Status }}
+          </div>
+          <div class="flex gap-7">
+            {{ template "state-icon" $endpoint2_ok }}
+            {{ template "status-endpoint-label" "Tags" }}
+            {{ template "status-endpoint-result" $tags.Response.Status }}
+          </div>
+        </div>
+        {{ template "status-badge" (and $endpoint1_ok $endpoint2_ok) }}
+      </div>
+      {{ template "link-container" "//${LINKWARDEN_URL}" }}
+        {{ template "header-container" }}
+          {{ template "logo" "${DASHBOARD_ICONS}/webp/linkwarden.webp" }}
+          {{ template "title-container" }}
+            {{ template "title" "Linkwarden" }}
+            {{ template "subtitle" "Bookmark Manager" }}
+          </div>
+        </div>
+      </a>
+      {{ template "stat-container" }}
+        <div>
+          {{ template "stat-value" ($collections.JSON.Array "response" | len) }}
+          {{ template "stat-label" "Collections" }}
+        </div>
+        <div>
+          {{ template "stat-value" ($tags.JSON.Array "response" | len) }}
+          {{ template "stat-label" "Tags" }}
+        </div>
+      </div>
+    </div>
