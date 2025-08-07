@@ -2,6 +2,7 @@
   title: Proxmox
   url: https://${PROXMOXVE_URL}/api2/json/cluster/resources
   css-class: glimpsable-custom
+  frameless: true
   hide-header: true
   headers:
     Accept: application/json
@@ -11,43 +12,50 @@
   template: | #html
     $include: _stat-template.gohtml
     {{ template "main-container" }}
+      {{ $endpoint1_ok := and (ge .Response.StatusCode 200) (le .Response.StatusCode 299) }}
+      <div class="shrink-0" data-popover-type="html" data-popover-position="above" aria-hidden="true">
+        <div data-popover-html>
+          <div class="flex">
+            <div class="size-h5">Endpoint</div>
+            <div class="value-separator"></div>
+            <div class="text-very-compact color-{{ if $endpoint1_ok }}positive{{ else }}negative{{ end }}">{{ .Response.Status }}</div>
+          </div>
+        </div>
+        {{ template "status-badge" $endpoint1_ok }}
+      </div>
       {{ template "link-container" "${PROXMOXVE_URL}" }}
         {{ template "header-container" }}
           {{ template "logo" "${DASHBOARD_ICONS}/svg/proxmox.svg" }}
           {{ template "title-container" }}
             {{ template "title" "Proxmox VE" }}
-            <!-- {{ template "subtitle" "Virtualization Platform" }} -->
+            {{ template "subtitle" "Virtualization Platform" }}
           </div>
         </div>
       </a>
       {{ template "stat-container" }}
-        {{ if eq .Response.StatusCode 200 }}
-          {{ $nodes_online := len (.JSON.Array "data.#(type==\"node\")#|#(status==\"online\")#") | formatNumber }}
-          {{ $nodes_total := len (.JSON.Array "data.#(type==\"node\")#") }}
-          <div>
-            {{ template "stat-value" (concat $nodes_online "/" ($nodes_total | formatNumber)) }}
-            {{ template "stat-label" "Node" }}
-          </div>
-          <div>
-            {{ $lxc_running := len (.JSON.Array "data.#(type==\"lxc\")#|#(status==\"running\")#|#(template==0)#") | formatNumber }}
-            {{ $lxc_total := len (.JSON.Array "data.#(type==\"lxc\")#|#(template==0)#") | formatNumber }}
-            {{ template "stat-value" (concat $lxc_running "/" $lxc_total) }}
-            {{ template "stat-label" "LXC" }}
-          </div>
-          <div>
-            {{ $qemu_running := len (.JSON.Array "data.#(type==\"qemu\")#|#(status==\"running\")#|#(template==0)#") | formatNumber }}
-            {{ $qemu_total := len (.JSON.Array "data.#(type==\"qemu\")#|#(template==0)#") | formatNumber }}
-            {{ template "stat-value" (concat $qemu_running "/" $qemu_total) }}
-            {{ template "stat-label" "VM" }}
-          </div>
-          <div>
-            {{ $storage_available := len (.JSON.Array "data.#(type==\"storage\")#|#(status==\"available\")#") | formatNumber }}
-            {{ $storage_total := len (.JSON.Array "data.#(type==\"storage\")#") | formatNumber }}
-            {{ template "stat-value" (concat $storage_available "/" $storage_total) }}
-            {{ template "stat-label" "Storage" }}
-          </div>
-        {{ else }}
-          {{ template "stat-fail" .Response.Status }}
-        {{ end }}
+        {{ $nodes_online := len (.JSON.Array "data.#(type==\"node\")#|#(status==\"online\")#") | formatNumber }}
+        {{ $nodes_total := len (.JSON.Array "data.#(type==\"node\")#") }}
+        <div>
+          {{ template "stat-value" (concat $nodes_online "/" ($nodes_total | formatNumber)) }}
+          {{ template "stat-label" "Node" }}
+        </div>
+        <div>
+          {{ $lxc_running := len (.JSON.Array "data.#(type==\"lxc\")#|#(status==\"running\")#|#(template==0)#") | formatNumber }}
+          {{ $lxc_total := len (.JSON.Array "data.#(type==\"lxc\")#|#(template==0)#") | formatNumber }}
+          {{ template "stat-value" (concat $lxc_running "/" $lxc_total) }}
+          {{ template "stat-label" "LXC" }}
+        </div>
+        <div>
+          {{ $qemu_running := len (.JSON.Array "data.#(type==\"qemu\")#|#(status==\"running\")#|#(template==0)#") | formatNumber }}
+          {{ $qemu_total := len (.JSON.Array "data.#(type==\"qemu\")#|#(template==0)#") | formatNumber }}
+          {{ template "stat-value" (concat $qemu_running "/" $qemu_total) }}
+          {{ template "stat-label" "VM" }}
+        </div>
+        <div>
+          {{ $storage_available := len (.JSON.Array "data.#(type==\"storage\")#|#(status==\"available\")#") | formatNumber }}
+          {{ $storage_total := len (.JSON.Array "data.#(type==\"storage\")#") | formatNumber }}
+          {{ template "stat-value" (concat $storage_available "/" $storage_total) }}
+          {{ template "stat-label" "Storage" }}
+        </div>
       </div>
     </div>

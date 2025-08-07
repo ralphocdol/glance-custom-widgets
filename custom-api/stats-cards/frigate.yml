@@ -1,6 +1,7 @@
 - type: custom-api
   title: Frigate
   url: https://${FRIGATE_URL}/api/review/summary
+  frameless: true
   css-class: glimpsable-custom
   hide-header: true
   allow-insecure: true
@@ -10,27 +11,34 @@
   template: | #html
     $include: _stat-template.gohtml
     {{ template "main-container" }}
-      {{ template "link-container" "${FRIGATE_URL}" }}
+      {{ $endpoint1_ok := and (ge .Response.StatusCode 200) (le .Response.StatusCode 299) }}
+      <div class="shrink-0" data-popover-type="html" data-popover-position="above" aria-hidden="true">
+        <div data-popover-html>
+          <div class="flex">
+            <div class="size-h5">Endpoint</div>
+            <div class="value-separator"></div>
+            <div class="text-very-compact color-{{ if $endpoint1_ok }}positive{{ else }}negative{{ end }}">{{ .Response.Status }}</div>
+          </div>
+        </div>
+        {{ template "status-badge" $endpoint1_ok }}
+      </div>
+      {{ template "link-container" "//${FRIGATE_URL}" }}
         {{ template "header-container" }}
           {{ template "logo" "${DASHBOARD_ICONS}/svg/frigate-light.svg" }}
           {{ template "title-container" }}
             {{ template "title" "Frigate" }}
-            <!-- {{ template "subtitle" "Security Camera System" }} -->
+            {{ template "subtitle" "Security Camera System" }}
           </div>
         </div>
       </a>
       {{ template "stat-container" }}
-        {{ if eq .Response.StatusCode 200 }}
-          <div>
-            {{ template "stat-value" .JSON.Int "last24Hours.total_alert" | formatNumber }}
-            {{ template "stat-label" "ALERT" }}
-          </div>
-          <div>
-            {{ template "stat-value" .JSON.Int "last24Hours.total_detection" | formatNumber }}
-            {{ template "stat-label" "DETECTION" }}
-          </div>
-        {{ else }}
-          {{ template "stat-fail" .Response.Status }}
-        {{ end }}
+        <div>
+          {{ template "stat-value" .JSON.Int "last24Hours.total_alert" | formatNumber }}
+          {{ template "stat-label" "ALERT" }}
+        </div>
+        <div>
+          {{ template "stat-value" .JSON.Int "last24Hours.total_detection" | formatNumber }}
+          {{ template "stat-label" "DETECTION" }}
+        </div>
       </div>
     </div>
