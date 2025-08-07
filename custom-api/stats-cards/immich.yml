@@ -1,6 +1,7 @@
 - type: custom-api
   url: https://${IMMICH_URL}/api/server/statistics
   css-class: glimpsable-custom
+  frameless: true
   hide-header: true
   headers:
     x-api-key: ${IMMICH_KEY}
@@ -10,31 +11,38 @@
   template: | #html
     $include: _stat-template.gohtml
     {{ template "main-container" }}
+      {{ $endpoint1_ok := and (ge .Response.StatusCode 200) (le .Response.StatusCode 299) }}
+      <div class="shrink-0" data-popover-type="html" data-popover-position="above" aria-hidden="true">
+        <div data-popover-html>
+          <div class="flex">
+            <div class="size-h5">Endpoint</div>
+            <div class="value-separator"></div>
+            <div class="text-very-compact color-{{ if $endpoint1_ok }}positive{{ else }}negative{{ end }}">{{ .Response.Status }}</div>
+          </div>
+        </div>
+        {{ template "status-badge" $endpoint1_ok }}
+      </div>
       {{ template "link-container" "${IMMICH_URL}" }}
         {{ template "header-container" }}
           {{ template "logo" "${DASHBOARD_ICONS}/svg/immich.svg" }}
           {{ template "title-container" }}
             {{ template "title" "Immich" }}
-            <!-- {{ template "subtitle" "Photo Library" }} -->
+            {{ template "subtitle" "Photo Library" }}
           </div>
         </div>
       </a>
       {{ template "stat-container" }}
-        {{ if eq .Response.StatusCode 200 }}
-          <div>
-            {{ template "stat-value" .JSON.Int "photos" | formatNumber }}
-            {{ template "stat-label" "PHOTOS" }}
-          </div>
-          <div>
-            {{ template "stat-value" .JSON.Int "videos" | formatNumber }}
-            {{ template "stat-label" "VIDEOS" }}
-          </div>
-          <div>
-            {{ template "stat-value" (printf "%s<span style='color: var(--color-text-base);'>GB</span>" (div (.JSON.Int "usage" | toFloat) 1073741824 | toInt | formatNumber) | safeHTML) }}
-            {{ template "stat-label" "USAGE" }}
-          </div>
-        {{ else }}
-          {{ template "stat-fail" .Response.Status }}
-        {{ end }}
+        <div>
+          {{ template "stat-value" .JSON.Int "photos" | formatNumber }}
+          {{ template "stat-label" "PHOTOS" }}
+        </div>
+        <div>
+          {{ template "stat-value" .JSON.Int "videos" | formatNumber }}
+          {{ template "stat-label" "VIDEOS" }}
+        </div>
+        <div>
+          {{ template "stat-value" (printf "%s<span style='color: var(--color-text-base);'>GB</span>" (div (.JSON.Int "usage" | toFloat) 1073741824 | toInt | formatNumber) | safeHTML) }}
+          {{ template "stat-label" "USAGE" }}
+        </div>
       </div>
     </div>

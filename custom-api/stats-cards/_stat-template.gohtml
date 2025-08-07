@@ -1,5 +1,9 @@
 {{ define "main-container" }}
-  <div class="monitor-site flex flex-column gap-7" glimpse-list>
+  <div class="widget-content monitor-site flex flex-column gap-7" style="position: relative;" glimpse-list>
+{{ end }}
+
+{{ define "status-badge" }}
+  <div class="stat-card-badge color-{{ if . }}positive{{ else }}negative{{ end }}">{{ if . }}RUNNING{{ else }}STOPPED{{ end }}</div>
 {{ end }}
 
 {{ define "link-container" }}

@@ -9,10 +9,16 @@
 > - [Swipe Gesture](https://github.com/ralphocdol/glance-micro-scripts/blob/main/swipe-left-and-right/README.md)
 
 ## Screenshots
+<small>
+  Proxmox Backup Server card is not yet available due to how buggy their API as of version 3.4.3.
+</small>
+
 ![desktop](preview1.png)
+
+
 ![mobile](preview2.png)
 
-with subtitle/description:
+Status on hover:
 
 ![subtitled](preview3.png)
 
