@@ -22,27 +22,29 @@
         </div>
         {{ template "status-badge" $endpoint1_ok }}
       </div>
-      {{ template "link-container" "//${PAPERLESS_URL}/documents" }}
-        {{ template "header-container" }}
-          {{ template "logo" "${DASHBOARD_ICONS}/svg/paperless.svg" }}
-          {{ template "title-container" }}
-            {{ template "title" "PaperlessNGX" }}
-            {{ template "subtitle" "Document Management" }}
+      {{ template "layout-container" }}
+        {{ template "link-container" "//${PAPERLESS_URL}/documents" }}
+          {{ template "header-container" }}
+            {{ template "logo" "${DASHBOARD_ICONS}/svg/paperless.svg" }}
+            {{ template "title-container" }}
+              {{ template "title" "PaperlessNGX" }}
+              {{ template "subtitle" "Document Management" }}
+            </div>
           </div>
-        </div>
-      </a>
-      {{ template "stat-container" }}
-        <div>
-          {{ template "stat-value" .JSON.Int "documents_total" | formatNumber }}
-          {{ template "stat-label" "Documents" }}
-        </div>
-        <div>
-          {{ template "stat-value" .JSON.Int "documents_inbox" | formatNumber }}
-          {{ template "stat-label" "Inbox" }}
-        </div>
-        <div>
-          {{ template "stat-value" .JSON.Int "character_count" | formatNumber }}
-          {{ template "stat-label" "Characters" }}
+        </a>
+        {{ template "stat-container" }}
+          <div>
+            {{ template "stat-value" .JSON.Int "documents_total" | formatNumber }}
+            {{ template "stat-label" "Documents" }}
+          </div>
+          <div>
+            {{ template "stat-value" .JSON.Int "documents_inbox" | formatNumber }}
+            {{ template "stat-label" "Inbox" }}
+          </div>
+          <div>
+            {{ template "stat-value" .JSON.Int "character_count" | formatNumber }}
+            {{ template "stat-label" "Characters" }}
+          </div>
         </div>
       </div>
     </div>

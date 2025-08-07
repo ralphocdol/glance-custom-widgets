@@ -22,27 +22,29 @@
         </div>
         {{ template "status-badge" $endpoint1_ok }}
       </div>
-      {{ template "link-container" "//${IMMICH_URL}" }}
-        {{ template "header-container" }}
-          {{ template "logo" "${DASHBOARD_ICONS}/svg/immich.svg" }}
-          {{ template "title-container" }}
-            {{ template "title" "Immich" }}
-            {{ template "subtitle" "Photo Library" }}
+      {{ template "layout-container" }}
+        {{ template "link-container" "//${IMMICH_URL}" }}
+          {{ template "header-container" }}
+            {{ template "logo" "${DASHBOARD_ICONS}/svg/immich.svg" }}
+            {{ template "title-container" }}
+              {{ template "title" "Immich" }}
+              {{ template "subtitle" "Photo Library" }}
+            </div>
           </div>
-        </div>
-      </a>
-      {{ template "stat-container" }}
-        <div>
-          {{ template "stat-value" .JSON.Int "photos" | formatNumber }}
-          {{ template "stat-label" "PHOTOS" }}
-        </div>
-        <div>
-          {{ template "stat-value" .JSON.Int "videos" | formatNumber }}
-          {{ template "stat-label" "VIDEOS" }}
-        </div>
-        <div>
-          {{ template "stat-value" (printf "%s<span style='color: var(--color-text-base);'>GB</span>" (div (.JSON.Int "usage" | toFloat) 1073741824 | toInt | formatNumber) | safeHTML) }}
-          {{ template "stat-label" "USAGE" }}
+        </a>
+        {{ template "stat-container" }}
+          <div>
+            {{ template "stat-value" .JSON.Int "photos" | formatNumber }}
+            {{ template "stat-label" "PHOTOS" }}
+          </div>
+          <div>
+            {{ template "stat-value" .JSON.Int "videos" | formatNumber }}
+            {{ template "stat-label" "VIDEOS" }}
+          </div>
+          <div>
+            {{ template "stat-value" (printf "%s<span style='color: var(--color-text-base);'>GB</span>" (div (.JSON.Int "usage" | toFloat) 1073741824 | toInt | formatNumber) | safeHTML) }}
+            {{ template "stat-label" "USAGE" }}
+          </div>
         </div>
       </div>
     </div>
