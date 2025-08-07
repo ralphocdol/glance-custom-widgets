@@ -1,9 +1,25 @@
 {{ define "main-container" }}
-  <div class="widget-content monitor-site flex flex-column gap-7" style="position: relative;" glimpse-list>
+  <div class="widget-content monitor-site flex flex-column gap-7 stat-card-container" glimpse-list>
+{{ end }}
+
+{{ define "status-badge-popover" }}
+  <div class="shrink-0" data-popover-type="html" data-popover-position="above" data-popover-anchor=".stat-card-badge" data-popover-offset="0.75" data-popover-max-width="400px" aria-hidden="true">
 {{ end }}
 
 {{ define "status-badge" }}
   <div class="stat-card-badge color-{{ if . }}positive{{ else }}negative{{ end }}">{{ if . }}RUNNING{{ else }}STOPPED{{ end }}</div>
+{{ end }}
+
+{{ define "status-endpoint-label" }}
+  {{ $label := "Endpoint" }}
+  {{ if and (ne . nil) (ne . "") }}{{ $label = . }}{{ end }}
+
+  <div class="size-h5">{{ $label }}</div>
+  <div class="value-separator"></div>
+{{ end }}
+
+{{ define "status-endpoint-result" }}
+  <div class="text-very-compact">{{ . }}</div>
 {{ end }}
 
 {{ define "link-container" }}
@@ -23,7 +39,7 @@
 {{ end }}
 
 {{ define "title-container" }}
-  <div class="grow min-width-0" style="line-height: 1.3;">
+  <div class="grow min-width-0 stat-title-container">
 {{ end }}
 
 {{ define "title" }}
@@ -31,7 +47,7 @@
 {{ end }}
     
 {{ define "subtitle" }}  
-  <span class="size-h6 text-truncate block uppercase" style="color: var(--color-text-base-muted);">{{ . }}</span>
+  <span class="size-h6 text-truncate block uppercase stat-subtitle">{{ . }}</span>
 {{ end }}
 
 {{ define "stat-container" }}
@@ -56,3 +72,17 @@
     {{ template "stat-label" "ERROR" }}
   </div>
 {{ end }}
+
+{{- define "state-icon" }}
+  <div style="width: 2rem;">
+    {{- if . }}
+    <svg class="square-20" fill="var(--color-positive)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" aria-hidden="true">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
+    </svg>
+    {{- else }}
+    <svg class="square-20 block" fill="var(--color-negative)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495ZM10 5a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 10 5Zm0 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd" />
+    </svg>
+    {{- end }}
+  </div>
+{{- end }}
