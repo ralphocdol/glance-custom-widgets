@@ -1,0 +1,44 @@
+- type: custom-api
+  title: ByteStash
+  url: https://${BYTESTASH_URL}/api/v1/snippets
+  css-class: glimpsable
+  frameless: true
+  hide-header: true
+  headers:
+    Accept: application/json
+    x-api-key: ${BYTESTASH_KEY}
+  cache: 5s
+  template: | #html
+    $include: _stat-template.gohtml
+    {{ template "main-container" }}
+      {{ $endpoint1_ok := and (ge .Response.StatusCode 200) (le .Response.StatusCode 299) }}
+      {{ template "status-badge-popover" }}
+        <div data-popover-html>
+          <div class="flex gap-7">
+            {{ template "state-icon" $endpoint1_ok }}
+            {{ template "status-endpoint-label" }}
+            {{ template "status-endpoint-result" .Response.Status }}
+          </div>
+        </div>
+        {{ template "status-badge" $endpoint1_ok }}
+      </div>
+      {{ template "link-container" "//${BYTESTASH_URL}" }}
+        {{ template "header-container" }}
+          {{ template "logo" "${DASHBOARD_ICONS}/svg/bytestash.svg" }}
+          {{ template "title-container" }}
+            {{ template "title" "ByteStash" }}
+            {{ template "subtitle" "Code Snippet Manager" }}
+          </div>
+        </div>
+      </a>
+      {{ template "stat-container" }}
+        <div>
+          {{ template "stat-value" (.JSON.Array "#(is_public==0)#" | len) }}
+          {{ template "stat-label" "Private" }}
+        </div>
+        <div>
+          {{ template "stat-value" (.JSON.Array "#(is_public==1)#" | len) }}
+          {{ template "stat-label" "Public" }}
+        </div>
+      </div>
+    </div>
