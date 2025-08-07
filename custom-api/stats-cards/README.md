@@ -4,7 +4,6 @@
 >
 > Dependency:
 > - [stat-grid-style.css](/styles/stat-grid-style.css)
-> - `.unit-suffix` style in [custom.css](/styles/custom.css) (optional)
 >
 > Compatibility with:
 > - [Glimpse](https://github.com/ralphocdol/glance-micro-scripts/blob/main/glimpse/README.md)
