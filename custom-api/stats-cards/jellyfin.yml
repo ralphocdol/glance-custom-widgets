@@ -6,6 +6,11 @@
   headers:
     Authorization: MediaBrowser Token=${JELLYFIN_KEY}
     Accept: application/json
+  options:
+    icon: ${DASHBOARD_ICONS}/svg/jellyfin.svg
+    link: //${JELLYFIN_URL}
+    title: Jellyfin
+    subtitle: Media Server
   skip-json-validation: true
   cache: 1m
   template: | #html
@@ -23,15 +28,7 @@
         {{ template "status-badge" $endpoint1_ok }}
       </div>
       {{ template "layout-container" }}
-        {{ template "link-container" "//${JELLYFIN_URL}" }}
-          {{ template "header-container" }}
-            {{ template "logo" "${DASHBOARD_ICONS}/svg/jellyfin.svg" }}
-            {{ template "title-container" }}
-              {{ template "title" "Jellyfin" }}
-              {{ template "subtitle" "Media Server" }}
-            </div>
-          </div>
-        </a>
+        $include: _stat-main-title.gohtml
         {{ template "stat-container" }}
           <div>
             {{ template "stat-value" .JSON.Int "MovieCount" | formatNumber }}

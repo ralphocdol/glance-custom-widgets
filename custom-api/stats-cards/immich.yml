@@ -6,6 +6,11 @@
   headers:
     x-api-key: ${IMMICH_KEY}
     Accept: application/json
+  options:
+    icon: ${DASHBOARD_ICONS}/svg/immich.svg
+    link: //${IMMICH_URL}
+    title: Immich
+    subtitle: Photo Library
   skip-json-validation: true
   cache: 1m
   template: | #html
@@ -23,15 +28,7 @@
         {{ template "status-badge" $endpoint1_ok }}
       </div>
       {{ template "layout-container" }}
-        {{ template "link-container" "//${IMMICH_URL}" }}
-          {{ template "header-container" }}
-            {{ template "logo" "${DASHBOARD_ICONS}/svg/immich.svg" }}
-            {{ template "title-container" }}
-              {{ template "title" "Immich" }}
-              {{ template "subtitle" "Photo Library" }}
-            </div>
-          </div>
-        </a>
+        $include: _stat-main-title.gohtml
         {{ template "stat-container" }}
           <div>
             {{ template "stat-value" .JSON.Int "photos" | formatNumber }}
