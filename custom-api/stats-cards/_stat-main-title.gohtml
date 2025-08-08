@@ -1,0 +1,9 @@
+{{ template "link-container" (.Options.StringOr "link" "#") }}
+  {{ template "header-container" }}
+    {{ template "logo" (.Options.StringOr "icon" "") }}
+    {{ template "title-container" }}
+      {{ template "title" (.Options.StringOr "title" "Title Placeholder") }}
+      {{ template "subtitle" (.Options.StringOr "subtitle" "Subtitle Placeholder") }}
+    </div>
+  </div>
+</a>

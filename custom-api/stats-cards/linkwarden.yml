@@ -1,10 +1,14 @@
 - type: custom-api
-  title: Linkwarden
   css-class: glimpsable
   frameless: true
   hide-header: true
   headers:
     Accept: application/json
+  options:
+    icon: ${DASHBOARD_ICONS}/webp/linkwarden.webp
+    link: //${LINKWARDEN_URL}
+    title: Linkwarden
+    subtitle: Bookmark Manager
   cache: 5s
   template: | #html
     {{
@@ -37,15 +41,7 @@
         {{ template "status-badge" (and $endpoint1_ok $endpoint2_ok) }}
       </div>
       {{ template "layout-container" }}
-        {{ template "link-container" "//${LINKWARDEN_URL}" }}
-          {{ template "header-container" }}
-            {{ template "logo" "${DASHBOARD_ICONS}/webp/linkwarden.webp" }}
-            {{ template "title-container" }}
-              {{ template "title" "Linkwarden" }}
-              {{ template "subtitle" "Bookmark Manager" }}
-            </div>
-          </div>
-        </a>
+        $include: _stat-main-title.gohtml
         {{ template "stat-container" }}
           <div>
             {{ template "stat-value" ($collections.JSON.Array "response" | len) }}
