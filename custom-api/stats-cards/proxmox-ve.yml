@@ -1,5 +1,5 @@
 - type: custom-api
-  url: https://${PROXMOXVE_URL}/api2/json/nodes
+  url: https://${PROXMOXVE_URL}/api2/json/cluster/resources
   css-class: glimpsable-custom
   frameless: true
   hide-header: true
