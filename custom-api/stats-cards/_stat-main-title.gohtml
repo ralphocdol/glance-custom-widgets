@@ -1,4 +1,4 @@
-{{ template "link-container" (.Options.StringOr "link" "#") }}
+{{ template "link-container" (.Options.StringOr "link" "") }}
   {{ template "header-container" }}
     {{ template "logo" (.Options.StringOr "icon" "") }}
     {{ template "title-container" }}
@@ -6,4 +6,5 @@
       {{ template "subtitle" (.Options.StringOr "subtitle" "Subtitle Placeholder") }}
     </div>
   </div>
+
 </a>
