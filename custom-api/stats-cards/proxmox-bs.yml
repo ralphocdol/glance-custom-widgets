@@ -1,0 +1,48 @@
+- type: custom-api
+  css-class: glimpsable-custom
+  frameless: true
+  hide-header: true
+  options:
+    icon: ${DASHBOARD_ICONS}/svg/proxmox-light.svg
+    link: ${PROXMOXBS_URL}/#DataStore-${PROXMOXBS_DATASTORE}
+    title: Proxmox BS
+    subtitle: Backup Solution for Proxmox
+  cache: 1m
+  template: | #html
+    {{
+      $request := newRequest (printf "https:${PROXMOXBS_URL}/api2/json/admin/datastore/%s/status" "${PROXMOXBS_DATASTORE}")
+        | withHeader "Authorization" "PBSAPIToken=${PROXMOXBS_KEY}"
+        | withHeader "Accept" "application/json"
+        | getResponse
+    }}
+    $include: _stat-template.gohtml
+    {{ template "main-container" }}
+      {{ $endpoint1_ok := and (ge $request.Response.StatusCode 200) (le $request.Response.StatusCode 299) }}
+      {{ template "status-badge-popover" }}
+        <div data-popover-html>
+          <div class="flex gap-7">
+            {{ template "state-icon" $endpoint1_ok }}
+            {{ template "status-endpoint-label" }}
+            {{ template "status-endpoint-result" $request.Response.Status }}
+          </div>
+        </div>
+        {{ template "status-badge" $endpoint1_ok }}
+      </div>
+      {{ template "layout-container" }}
+        $include: _stat-main-title.gohtml
+        {{ template "stat-container" }}
+          <div>
+            {{ template "stat-value" (printf "%s<span style='color: var(--color-text-base);'>GB</span>" (div ($request.JSON.Int "data.used" | toFloat) 1073741824 | toInt | formatNumber) | safeHTML) }}
+            {{ template "stat-label" "Used" }}
+          </div>
+          <div>
+            {{ template "stat-value" (printf "%s<span style='color: var(--color-text-base);'>GB</span>" (div ($request.JSON.Int "data.avail" | toFloat) 1073741824 | toInt | formatNumber) | safeHTML) }}
+            {{ template "stat-label" "Available" }}
+          </div>
+          <div>
+            {{ template "stat-value" (printf "%s<span style='color: var(--color-text-base);'>GB</span>" (div ($request.JSON.Int "data.total" | toFloat) 1073741824 | toInt | formatNumber) | safeHTML) }}
+            {{ template "stat-label" "Total" }}
+          </div>
+        </div>
+      </div>
+    </div>
