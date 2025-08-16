@@ -55,7 +55,11 @@
 {{ end }}
 
 {{ define "stat-container" }}
-  <div class="flex justify-between text-center widget-exclude-swipe stat-grid-style">
+  {{ $style := "" }}
+  {{ if and (ne . "") (ne . nil) }}
+    {{ $style = . | safeCSS }}
+  {{ end }}
+  <div class="flex justify-between text-center widget-exclude-swipe stat-grid-style" style="{{ $style }}">
 {{ end }}
 
 {{ define "stat-value" }}
