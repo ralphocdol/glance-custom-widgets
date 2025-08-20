@@ -79,3 +79,9 @@
     color: var(--color-text-base);
 }
 /* #endregion ============================================= */
+
+/* #region: Group tabs word spacing */
+.widget-group-title {
+    word-spacing: -0.2em;
+}
+/* #endregion ============================================= */
