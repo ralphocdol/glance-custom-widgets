@@ -1,0 +1,18 @@
+/* Hides the SHOW MORE/LESS text */
+.expand-toggle-button {
+    font-size: 0;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.expand-toggle-button-icon::before {
+    font-size: 1rem;
+    font-weight: bolder;
+}
+/* ============================== */
+
+/* Hides the buttons background on frameless custom template */
+.widget-content-frameless .expand-toggle-button:not(.container-expanded) {
+  background: unset;
+}
+/* ========================================================= */
