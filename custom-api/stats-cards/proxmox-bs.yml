@@ -4,7 +4,7 @@
   hide-header: true
   options:
     icon: ${DASHBOARD_ICONS}/svg/proxmox-light.svg
-    link: ${PROXMOXBS_URL}/#DataStore-${PROXMOXBS_DATASTORE}
+    link: //${PROXMOXBS_URL}/#DataStore-${PROXMOXBS_DATASTORE}
     title: Proxmox BS
     subtitle: Backup Solution for Proxmox
   cache: 1m
