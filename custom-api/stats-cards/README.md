@@ -42,7 +42,7 @@ pages:
 ```
 
 ## Side columns
-If you prefer a the column sizes directly then you *may* want to change the `gap` to make it not look awkward
+If you prefer a the column sizes directly then you *may* want use the `stat-container-compact` to make it not look awkward
 ```yml
 pages:
   - name: Stats Cards
@@ -58,9 +58,15 @@ pages:
 inside your `stats-cards` widget (eg: immich.yml), modify:
 ```go
 {{ template "stat-container" }}
-// change to:
-{{ template "stat-container" "gap: 0.5rem;" }}
 ```
+![default](preview4.png)
+
+change to
+
+```go
+{{ template "stat-container-compact" }}
+```
+![compact](preview5.png)
 
 ## Error Handling
 If you're using properties like `url` or `subrequests`, you'd usually need to add `skip-json-validation: true` in each of them to avoid native error handling. But with the `custom-api` helper function `newRequest`, there's no built-in error handling to begin with—so that property isn't needed. Do note that this is not able to handle `timeout` errors.
