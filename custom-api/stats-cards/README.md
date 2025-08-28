@@ -10,7 +10,6 @@
 > - [Swipe Gesture](https://github.com/ralphocdol/glance-micro-scripts/blob/main/swipe-left-and-right/README.md)
 
 ## Screenshots
-*<sub>Proxmox Backup Server stats-card is not yet available due to how buggy their API is as of version 3.4.3.</sub>*
 
 ![desktop](preview1.png)
 
