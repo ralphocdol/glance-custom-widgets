@@ -1,28 +1,30 @@
 - type: custom-api
-  url: https://${PAPERLESS_URL}/api/statistics/
   css-class: glimpsable-custom
   frameless: true
   hide-header: true
-  headers:
-    Authorization: Token ${PAPERLESS_KEY}
-    Accept: application/json
   options:
     icon: ${DASHBOARD_ICONS}/svg/paperless.svg
     link: //${PAPERLESS_URL}/documents
     title: PaperlessNGX
     subtitle: Document Management
-  skip-json-validation: true
   cache: 1s
   template: | #html
+    {{
+      $data := newRequest "https://${PAPERLESS_URL}/api/statistics/"
+        | withHeader "Accept" "application/json"
+        | withHeader "Content-Type" "application/json"
+        | withHeader "Authorization" "Token ${PAPERLESS_KEY}"
+        | getResponse
+    }}
     $include: _stat-template.gohtml
     {{ template "main-container" }}
-      {{ $endpoint1_ok := and (ge .Response.StatusCode 200) (le .Response.StatusCode 299) }}
+      {{ $endpoint1_ok := and (ge $data.Response.StatusCode 200) (le $data.Response.StatusCode 299) }}
       {{ template "status-badge-popover" }}
         <div data-popover-html>
           <div class="flex gap-7">
             {{ template "state-icon" $endpoint1_ok }}
             {{ template "status-endpoint-label" }}
-            {{ template "status-endpoint-result" .Response.Status }}
+            {{ template "status-endpoint-result" $data.Response.Status }}
           </div>
         </div>
         {{ template "status-badge" $endpoint1_ok }}
@@ -31,15 +33,15 @@
         $include: _stat-main-title.gohtml
         {{ template "stat-container" }}
           <div>
-            {{ template "stat-value" .JSON.Int "documents_total" | formatNumber }}
+            {{ template "stat-value" $data.JSON.Int "documents_total" | formatNumber }}
             {{ template "stat-label" "Documents" }}
           </div>
           <div>
-            {{ template "stat-value" .JSON.Int "documents_inbox" | formatNumber }}
+            {{ template "stat-value" $data.JSON.Int "documents_inbox" | formatNumber }}
             {{ template "stat-label" "Inbox" }}
           </div>
           <div>
-            {{ template "stat-value" .JSON.Int "character_count" | formatNumber }}
+            {{ template "stat-value" $data.JSON.Int "character_count" | formatNumber }}
             {{ template "stat-label" "Characters" }}
           </div>
         </div>
