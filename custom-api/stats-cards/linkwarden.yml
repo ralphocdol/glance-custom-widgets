@@ -2,8 +2,6 @@
   css-class: glimpsable
   frameless: true
   hide-header: true
-  headers:
-    Accept: application/json
   options:
     icon: ${DASHBOARD_ICONS}/webp/linkwarden.webp
     link: //${LINKWARDEN_URL}
