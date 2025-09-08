@@ -10,7 +10,7 @@
   cache: 1m
   template: | #html
     {{
-      $request := newRequest (printf "https:${PROXMOXBS_URL}/api2/json/admin/datastore/%s/status" "${PROXMOXBS_DATASTORE}")
+      $request := newRequest (printf "https://${PROXMOXBS_URL}/api2/json/admin/datastore/%s/status" "${PROXMOXBS_DATASTORE}")
         | withHeader "Authorization" "PBSAPIToken=${PROXMOXBS_KEY}"
         | withHeader "Accept" "application/json"
         | getResponse
