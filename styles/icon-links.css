@@ -15,7 +15,7 @@
 .docker-container:hover .docker-container-icon,
 .bookmarks-group li > div:hover .bookmarks-icon-container,
 .monitor-site:hover .monitor-site-icon {
-    background-color: var(--color-primary);
+    background-color: var(--color-primary); /* fallback in case color-mix is not supported in your browser */
     background-color: color-mix(in srgb, var(--color-primary), transparent 85%);
 }
 
@@ -38,4 +38,5 @@
 
 .bookmarks-group li > div:hover .bookmarks-icon {
     opacity: 1;
+
 }
