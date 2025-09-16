@@ -7,12 +7,19 @@
 
 .stat-grid-style>* {
     background: hsla(var(--bghs), calc(var(--scheme) (var(--scheme) var(--bgl) + 12%)), 0.4);
-    padding: 2px 4px;
+    padding: 3px 2px;
     border-radius: var(--border-radius);
     font-size: 1rem;
     flex: 1 1 0;
     white-space: nowrap;
     min-width: 0;
+    line-height: 1.4;
+}
+
+.stat-grid-style>*:not([data-popover-type])> :nth-child(2),
+.stat-grid-style>[data-popover-type]> :nth-child(2)> :nth-child(2),
+.stat-grid-style>[data-popover-type].popover-active> :nth-child(1)> :nth-child(2) {
+    font-size: 1.05rem;
 }
 
 .stat-card-container {
@@ -23,8 +30,13 @@
     line-height: 1.3;
 }
 
-.stat-card-container .stat-subtitle {
-    color: var(--color-text-base-muted);
+.stat-card-container .stat-title-container>.stat-title {
+    color: var(--color-text-highlight);
+    transition: color 0.3s ease;
+}
+
+.stat-card-container .stat-title-container:hover>.stat-title {
+    color: var(--color-primary);
 }
 
 .stat-card-container .stat-card-badge {

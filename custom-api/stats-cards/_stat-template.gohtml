@@ -23,7 +23,7 @@
 {{ end }}
 
 {{ define "status-endpoint-result" }}
-  <div class="text-very-compact">{{ . }}</div>
+  <div class="text-very-compact text-truncate" style="max-width: 65%;">{{ . }}</div>
 {{ end }}
 
 {{ define "link-container" }}
@@ -42,12 +42,16 @@
   <img class="monitor-site-icon" src="{{ . }}" loading="lazy" alt="">
 {{ end }}
 
+{{ define "logo-auto-invert" }}
+  <img class="monitor-site-icon flat-icon" src="{{ . }}" loading="lazy" alt="">
+{{ end }}
+
 {{ define "title-container" }}
   <div class="grow min-width-0 stat-title-container">
 {{ end }}
 
 {{ define "title" }}
-  <span class="size-h3 color-highlight text-truncate block">{{ . }}</span>
+  <span class="size-h3 text-truncate block stat-title">{{ . }}</span>
 {{ end }}
     
 {{ define "subtitle" }}  
