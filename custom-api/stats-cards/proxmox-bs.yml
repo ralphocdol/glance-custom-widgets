@@ -1,4 +1,4 @@
-- type: custom-api
+- type: custom-api #https://github.com/ralphocdol/glance-custom-widgets/pull/13
   css-class: glimpsable-custom
   frameless: true
   hide-header: true
