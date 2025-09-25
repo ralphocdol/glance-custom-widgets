@@ -1,0 +1,42 @@
+.docker-container .docker-container-icon,
+.monitor-site .monitor-site-icon {
+    background-color: var(--color-widget-background-highlight);
+    padding: 5px;
+    border-radius: 5px;
+    width: 4.2rem;
+}
+
+.docker-container .docker-container-icon,
+.bookmarks-group li > div .bookmarks-icon-container,
+.monitor-site .monitor-site-icon {
+    transition: background-color 0.3s ease;
+}
+
+.docker-container:hover .docker-container-icon,
+.bookmarks-group li > div:hover .bookmarks-icon-container,
+.monitor-site:hover .monitor-site-icon {
+    background-color: var(--color-primary); /* fallback in case color-mix is not supported in your browser */
+    background-color: color-mix(in srgb, var(--color-primary), transparent 85%);
+}
+
+.docker-container a,
+.bookmarks-group li > div .bookmarks-link,
+.monitor-site a {
+    transition: color 0.3s ease;
+}
+
+.docker-container:hover a,
+.docker-container:hover div:nth-child(2) > div:first-child,
+.bookmarks-group li > div:hover .bookmarks-link,
+.monitor-site:hover div > a {
+    color: var(--color-primary);
+}
+
+.bookmarks-group .bookmarks-icon {
+    transition: opacity 0.3s ease;
+}
+
+.bookmarks-group li > div:hover .bookmarks-icon {
+    opacity: 1;
+
+}
