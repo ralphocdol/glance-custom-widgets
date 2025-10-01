@@ -1,5 +1,5 @@
 - type: custom-api
-  css-class: glimpsable
+  css-class: glimpsable-custom
   frameless: true
   hide-header: true
   options:
