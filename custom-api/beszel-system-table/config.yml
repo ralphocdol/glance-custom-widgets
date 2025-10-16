@@ -49,6 +49,8 @@
           </div>
 
           <div data-show-on-mobile data-to-sort="{{ .Float "info.cpu" }}">
+            {{ $infoCpu := .Int "info.cpu" }}
+            {{ if gt $infoCpu 100 }}{{ $infoCpu = 100 }}{{ end }}
             <div class="with-progress-bar">
               <div class="flex">
                 <div class="flex-1">
@@ -59,12 +61,14 @@
                 </div>
               </div>
               <div class="progress-bar" hide-on-mobile>
-                <div class="progress-value{{ if ge (.Int "info.cpu") 65 }} progress-value-notice{{ end }}" style="--percent: {{ .Int "info.cpu" }}"></div>
+                <div class="progress-value{{ if ge $infoCpu 65 }} progress-value-notice{{ end }}" style="--percent: {{ $infoCpu }}"></div>
               </div>
             </div>
           </div>
 
           <div data-show-on-mobile data-to-sort="{{ .Float "info.mp" }}">
+            {{ $infoMp := .Int "info.mp" }}
+            {{ if gt $infoMp 100 }}{{ $infoMp = 100 }}{{ end }}
             <div class="with-progress-bar">
               <div class="flex">
                 <div class="flex-1">
@@ -72,12 +76,14 @@
                 </div>
               </div>
               <div class="progress-bar" hide-on-mobile>
-                <div class="progress-value{{ if ge (.Int "info.mp") 65 }} progress-value-notice{{ end }}" style="--percent: {{ .Int "info.mp" }}"></div>
+                <div class="progress-value{{ if ge $infoMp 65 }} progress-value-notice{{ end }}" style="--percent: {{ $infoMp }}"></div>
               </div>
             </div>
           </div>
 
           <div data-to-sort="{{ .Float "info.dp" }}">
+            {{ $infoDp := .Int "info.dp" }}
+            {{ if gt $infoDp 100 }}{{ $infoDp = 100 }}{{ end }}
             <div class="with-progress-bar">
               <div class="flex">
                 <div class="flex-1">
@@ -85,7 +91,7 @@
                 </div>
               </div>
               <div class="progress-bar" hide-on-mobile>
-                <div class="progress-value{{ if ge (.Int "info.dp") 65 }} progress-value-notice{{ end }}" style="--percent: {{ .Int "info.dp" }}"></div>
+                <div class="progress-value{{ if ge $infoDp 65 }} progress-value-notice{{ end }}" style="--percent: {{ $infoDp }}"></div>
               </div>
             </div>
           </div>

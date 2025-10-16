@@ -69,9 +69,10 @@
             </div>
           </div>
 
-          <div data-to-sort="{{ if $isRunning }}{{ .Int "mem" }}{{ else }}-1{{ end }}">
+          <div data-show-on-mobile data-to-sort="{{ if $isRunning }}{{ .Int "mem" }}{{ else }}-1{{ end }}">
             {{ if $isRunning }}
               {{ $memoryPercentage := mul (div (.Int "mem" | toFloat) (.Int "maxmem" | toFloat)) 100 | toInt }}
+              {{ if gt $memoryPercentage 100 }}{{ $memoryPercentage = 100 }}{{ end }}
               <div class="with-progress-bar">
                 <div class="flex">
                   <div class="" style="flex: 0 0 65%;">
@@ -93,6 +94,7 @@
           <div data-to-sort="{{ if $isRunning }}{{ .Int "disk" }}{{ else }}-1{{ end }}">
             {{ if $isRunning }}
               {{ $diskPercentage := mul (div (.Int "disk" | toFloat) (.Int "maxdisk" | toFloat)) 100 | toInt }}
+              {{ if gt $diskPercentage 100 }}{{ $diskPercentage = 100 }}{{ end }}
               <div class="with-progress-bar">
                 <div class="flex">
                   <div class="" style="flex: 0 0 65%;">

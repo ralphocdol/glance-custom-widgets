@@ -50,21 +50,23 @@
       <div table-body>
         {{ range $drives }}
         {{ if lt (.Int "percentage") 0 }}{{ continue }}{{ end }}
+        {{ $diskUsage := .Int "percentage" }}
+        {{ if gt $diskUsage 100 }}{{ $diskUsage = 100 }}{{ end }}
         <div table-row>
           <div data-as-mobile-title>{{ .String "devicename" }}</div>
           <div data-show-on-mobile>{{ .String "type" }}</div>
-          <div data-to-sort="{{ .Int "percentage" }}" data-show-on-mobile>
+          <div data-to-sort="{{ $diskUsage }}" data-show-on-mobile>
             <div class="with-progress-bar">
               <div class="flex">
                 <div class="" style="flex: 0 0 65%;">
-                  <span class="color-highlight">{{ .Int "percentage" }}</span><span class="unit-suffix">%</span>
+                  <span class="color-highlight">{{ $diskUsage }}</span><span class="unit-suffix">%</span>
                 </div>
                 <div class="text-right" style="flex: 0 0 35%;">
                   <span class="color-highlight">{{ div (sub (.Float "size") (.Float "available")) 1073741824 | printf "%.2f" | formatNumber }}</span><span class="unit-suffix">GB</span>
                 </div>
               </div>
               <div class="progress-bar hide-on-mobile">
-                <div class="progress-value{{ if ge (.Int "percentage") 80 }} progress-value-notice{{ end }}" style="--percent: {{ .Int "percentage" }}"></div>
+                <div class="progress-value{{ if ge $diskUsage 80 }} progress-value-notice{{ end }}" style="--percent: {{ $diskUsage }}"></div>
               </div>
             </div>
           </div>
