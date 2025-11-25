@@ -3,7 +3,7 @@
 {{ end }}
 
 {{ define "layout-container" }}
-  <div class="monitor-site flex flex-column gap-7">
+  <div class="monitor-site flex flex-column gap-7 icon-parent">
 {{ end }}
 
 {{ define "status-badge-popover" }}
@@ -39,11 +39,11 @@
 {{ end }}
 
 {{ define "logo" }}
-  <img class="monitor-site-icon" src="{{ . }}" loading="lazy" alt="">
+  <img class="icon square-32" src="{{ . }}" loading="lazy" alt="">
 {{ end }}
 
 {{ define "logo-auto-invert" }}
-  <img class="monitor-site-icon flat-icon" src="{{ . }}" loading="lazy" alt="">
+  <img class="icon square-32 flat-icon" src="{{ . }}" loading="lazy" alt="">
 {{ end }}
 
 {{ define "title-container" }}
