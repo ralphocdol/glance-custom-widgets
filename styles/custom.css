@@ -85,3 +85,9 @@
     word-spacing: -0.2em;
 }
 /* #endregion ============================================= */
+
+/* #region: no padding on a popover */
+.popover-frame:has([popover-no-padding]) {
+  padding: 0;
+}
+/* #endregion ============================================= */
