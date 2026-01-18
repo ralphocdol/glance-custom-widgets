@@ -47,7 +47,7 @@
     padding: 1px 7px;
     font-size: 0.95rem;
     letter-spacing: 0.05em;
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 calc(var(--border-radius) - 10px) 5px 5px;
     user-select: none;
     -moz-user-select: none;
 }
