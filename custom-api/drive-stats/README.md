@@ -19,7 +19,7 @@ Hover:
 ![drive-stats-hover](preview3.png)
 
 Expected Middleware API return:
-```json
+```jsonc
 [
     {
         "filesystem": "/dev/sda1",
