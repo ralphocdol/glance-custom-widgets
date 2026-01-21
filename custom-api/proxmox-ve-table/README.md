@@ -2,10 +2,10 @@
 ---
 > [!NOTE]
 >
-> Requires [Responsive Table](https://github.com/ralphocdol/glance-micro-scripts/blob/main/responsive-table/README.md).
+> Requires [Responsive Table](https://github.com/ralphocdol/glance-addon-scripts/blob/main/responsive-table/README.md).
 
-![desktop](preview1.png)
-![mobile](preview2.png)
+![desktop](preview/preview1.png)
+![mobile](preview/preview2.png)
 
 ## Custom CSS
 `.with-progress-bar` class is required.

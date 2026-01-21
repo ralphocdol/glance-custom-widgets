@@ -1,24 +1,24 @@
 # Stats Cards
----
+
 > [!NOTE]
 >
 > Dependency:
-> - [stat-grid-style.css](/styles/stat-grid-style.css)
+> - [stat-grid-style.css](stat-grid-style.css)
 >
 > Compatibility with:
-> - [Glimpse](https://github.com/ralphocdol/glance-micro-scripts/blob/main/glimpse/README.md)
-> - [Swipe Gesture](https://github.com/ralphocdol/glance-micro-scripts/blob/main/swipe-left-and-right/README.md)
+> - [Glimpse](https://github.com/ralphocdol/glance-addon-scripts/blob/main/glimpse/README.md)
+> - [Swipe Gesture](https://github.com/ralphocdol/glance-addon-scripts/blob/main/swipe-left-and-right/README.md)
 
 ## Screenshots
 
-![desktop](preview1.png)
+![desktop](preview/preview1.png)
 
 
-![mobile](preview2.png)
+![mobile](preview/preview2.png)
 
 Status on hover:
 
-![subtitled](preview3.png)
+![subtitled](preview/preview3.png)
 
 ## Shared Environment Variable
 ```ini
@@ -58,14 +58,14 @@ inside your `stats-cards` widget (eg: immich.yml), modify:
 ```go
 {{ template "stat-container" }}
 ```
-![default](preview4.png)
+![default](preview/preview4.png)
 
 change to
 
 ```go
 {{ template "stat-container-compact" }}
 ```
-![compact](preview5.png)
+![compact](preview/preview5.png)
 
 ## Error Handling
 Use the `custom-api`'s helper function `newRequest`.
