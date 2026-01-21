@@ -5,18 +5,18 @@
 > Requires Middleware API.
 
 #### `row=1`
-![drive-stats](preview1.png)
+![drive-stats](preview/preview1.png)
 
 #### `row=2`
 ```yml
  url: https:${MY_WEBSERVER_URL}/api/get-drive-stats?host=host1&row=2
 ```
-![drive-stats-2-row](preview2.png)
+![drive-stats-2-row](preview/preview2.png)
 
 
 Hover:
 
-![drive-stats-hover](preview3.png)
+![drive-stats-hover](preview/preview3.png)
 
 Expected Middleware API return:
 ```json
