@@ -2,7 +2,7 @@
 ---
 > [!NOTE]
 >
-> Requires Home Assistant
+> Requires Home Assistant, or not if you plan to use your own endpoint or modify this entirely
 
 ![weather-widget-card](preview1.webp)
 
@@ -14,4 +14,5 @@ Came from Open-Meteo using Home Assistant
 `https://<home-assistant-url>/api/states/<entity>`
 
 ### Weather Icons
+
 Source: https://github.com/Makin-Things/weather-icons

@@ -1,14 +1,15 @@
+# SUWAYOMI_DOMAIN = your-suwayomi.com or 192.168.1.123:4567
 - type: custom-api
   title: Manga
-  title-url: //${SUWAYOMI_URL}
-  url: https://${SUWAYOMI_URL}/api/graphql
+  title-url: //${SUWAYOMI_DOMAIN}
+  url: https://${SUWAYOMI_DOMAIN}/api/graphql
   method: post
   headers:
     Accept: application/json
   cache: 5s
   body:
     operationName: AllCategories
-    query: |
+    query: | #lua
       query AllCategories {
         mangas(filter: {inLibrary: {equalTo: true}}) {
           nodes {
@@ -53,8 +54,8 @@
       {{ range $index, $_ := $data }}
       {{ if ge $index $limit }}{{ break }}{{ end }}
 
-      {{ $coverUrl := concat "//${SUWAYOMI_URL}" (.String "thumbnailUrl") }}
-      {{ $mangaUrl := concat "//${SUWAYOMI_URL}/manga/" (.String "id") }}
+      {{ $coverUrl := concat "//${SUWAYOMI_DOMAIN}" (.String "thumbnailUrl") }}
+      {{ $mangaUrl := concat "//${SUWAYOMI_DOMAIN}/manga/" (.String "id") }}
       {{ $chapterUrl := concat $mangaUrl "/chapter/" (.String "latestFetchedChapter.sourceOrder") }}
 
       <li class="flex gap-10 items-start">
@@ -76,9 +77,9 @@
           <div class="flex gap-5 text-truncate size-h5 items-center">
             <div data-popover-type="html" data-popover-position="above" data-popover-show-delay="500">
               <div data-popover-html>
-                <img src="{{ concat "//${SUWAYOMI_URL}" (.String "source.iconUrl") }}" alt="{{ .String "source.name" }}" loading="lazy" />
+                <img src="{{ concat "//${SUWAYOMI_DOMAIN}" (.String "source.iconUrl") }}" alt="{{ .String "source.name" }}" loading="lazy" />
               </div>
-              <img src="{{ concat "//${SUWAYOMI_URL}" (.String "source.iconUrl") }}" style="width: 20px; height: 100%;" alt="{{ .String "source.name" }}" loading="lazy" />
+              <img src="{{ concat "//${SUWAYOMI_DOMAIN}" (.String "source.iconUrl") }}" style="width: 20px; height: 100%;" alt="{{ .String "source.name" }}" loading="lazy" />
             </div>
             <span>{{ .String "source.name" }}</span>
           </div>

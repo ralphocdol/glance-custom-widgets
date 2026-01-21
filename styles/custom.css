@@ -85,3 +85,21 @@
     word-spacing: -0.2em;
 }
 /* #endregion ============================================= */
+
+/* #region: no padding on a popover */
+.popover-frame:has([popover-no-padding]) {
+  padding: 0;
+}
+/* #endregion ============================================= */
+
+/* #region: Sticky Header */
+/**
+ * Will be removed until https://github.com/glanceapp/glance/pull/916
+ * is merged
+ */
+.header-container {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+/* #endregion ============================================= */

@@ -40,14 +40,14 @@
 }
 
 .stat-card-container .stat-card-badge {
-  position: absolute;
-  top: 0;
-  right: 12px;
-  background: hsla(var(--bghs), calc(var(--scheme) (var(--scheme) var(--bgl) + 12%)), 0.4);
-  padding: 1px 7px;
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  border-radius: 0 calc(var(--border-radius) - 10px) 5px 5px;
-  user-select: none;
-  -moz-user-select: none;
+    position: absolute;
+    top: 0;
+    right: 12px;
+    background: hsla(var(--bghs), calc(var(--scheme) (var(--scheme) var(--bgl) + 12%)), 0.4);
+    padding: 1px 7px;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    border-radius: 0 calc(var(--border-radius) - 10px) 5px 5px;
+    user-select: none;
+    -moz-user-select: none;
 }

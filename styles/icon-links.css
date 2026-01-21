@@ -1,21 +1,31 @@
+.widget-type-monitor ul.dynamic-columns div.flex .icon,
+.widget-type-docker-containers ul.dynamic-columns li.flex .icon,
 .docker-container .docker-container-icon,
 .monitor-site .monitor-site-icon {
     background-color: var(--color-widget-background-highlight);
     padding: 5px;
     border-radius: 5px;
+}
+
+.docker-container .docker-container-icon,
+.monitor-site .monitor-site-icon {
     width: 4.2rem;
 }
 
+.widget-type-monitor ul.dynamic-columns div.flex .icon,
+.widget-type-docker-containers ul.dynamic-columns li.flex .icon,
 .docker-container .docker-container-icon,
 .bookmarks-group li > div .bookmarks-icon-container,
 .monitor-site .monitor-site-icon {
     transition: background-color 0.3s ease;
 }
 
+.widget-type-monitor ul.dynamic-columns div.flex:hover .icon,
+.widget-type-docker-containers ul.dynamic-columns li.flex:hover .icon,
 .docker-container:hover .docker-container-icon,
 .bookmarks-group li > div:hover .bookmarks-icon-container,
 .monitor-site:hover .monitor-site-icon {
-    background-color: var(--color-primary); /* fallback in case color-mix is not supported in your browser */
+    background-color: var(--color-primary);
     background-color: color-mix(in srgb, var(--color-primary), transparent 85%);
 }
 
@@ -25,6 +35,8 @@
     transition: color 0.3s ease;
 }
 
+.widget-type-monitor ul.dynamic-columns div.flex:hover a,
+.widget-type-docker-containers ul.dynamic-columns li.flex:hover a,
 .docker-container:hover a,
 .docker-container:hover div:nth-child(2) > div:first-child,
 .bookmarks-group li > div:hover .bookmarks-link,
@@ -38,5 +50,4 @@
 
 .bookmarks-group li > div:hover .bookmarks-icon {
     opacity: 1;
-
 }
