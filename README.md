@@ -1,2 +1,1 @@
-# glance-custom-widgets
-Collections that may not make it to [Glance Community Widgets](https://github.com/glanceapp/community-widgets) because of some external requirements like a Webserver, Extra CSS or other files.
+Collection of widgets that may not make it to [Glance Community Widgets](https://github.com/glanceapp/community-widgets) because of some external requirements like a Webserver, Extra CSS, [Addon Scripts](https://github.com/ralphocdol/glance-addon-scripts) or other files.
