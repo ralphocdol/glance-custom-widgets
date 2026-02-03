@@ -1,24 +1,13 @@
-/* Can be reused for other custom widgets, check the template that uses this */
-
 .vertical-release-layout .release-cover {
+  min-width: 8rem;
   width: 8rem;
-  max-width: 8rem;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   height: 12rem;
   object-fit: cover;
   border-radius: var(--border-radius) 0 0 var(--border-radius);
 }
 
-.vertical-release-layout > .release-cover-popover {
-  width: 25rem;
-  max-width: 25rem;
-  height: 35rem;
-}
-
-.vertical-release-layout .release-cover.placeholder {
-  width: 8rem;
-  max-width: 8rem;
-  overflow: hidden;
+.vertical-release-layout .zoom-on-hover {
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
 }
 
 .vertical-release-layout .release-data {
@@ -67,4 +56,83 @@
 	border-radius: var(--border-radius);
 	border: 1px solid var(--color-separator);
   box-shadow: 0px 3px 0px 0px hsl(var(--bghs), calc(var(--scheme) (var(--scheme) var(--bgl)) - 0.5%));
+  backdrop-filter: var(--widget-background-blur, none);
+}
+
+.popover-content .vertical-release-popover {
+  --right-side-max-width: 420px;
+  --vertical-release-popover-height: 200px;
+  display: flex;
+  align-items: flex-start;
+  width: 600px;
+  gap: 0.5rem;
+}
+
+.popover-content .vertical-release-popover a.thumbnail-parent {
+  display: block;
+  height: var(--vertical-release-popover-height);
+  flex: 0 0 25%;
+}
+
+.popover-content .vertical-release-popover .thumbnail {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+.popover-content .vertical-release-popover .vertical-release-popover-right-side {
+  display: flex;
+  flex: 1;
+  height: var(--vertical-release-popover-height);
+  padding: 10px;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.popover-content .vertical-release-popover .vertical-release-popover-description {
+  /*max-height: 125px;*/
+  flex: 1;
+  overflow-y: auto;
+  max-width: var(--right-side-max-width);
+  min-height: 0;
+  margin: 0.5rem 0;
+}
+
+.popover-content .vertical-release-popover .vertical-release-popover-tags {
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  max-width: var(--right-side-max-width);
+  scrollbar-width: none;
+  font-size: 0.8em;
+  margin-top: auto;
+}
+
+.popover-content .vertical-release-popover .vertical-release-popover-tags ul {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.popover-content .vertical-release-popover .vertical-release-popover-tags li {
+  color: var(--color-background);
+  background-color: var(--color-primary);
+  flex: 0 0 auto;
+  border-radius: var(--border-radius);
+  padding: 0.1rem 0.5rem;
+}
+
+@media (max-width: 550px) {
+  .popover-content .vertical-release-popover {
+    width: 390px;
+    --right-side-max-width: 240px;
+  }
+
+  .popover-content .vertical-release-popover a.thumbnail-parent {
+    flex: 0 0 30%;
+  }
 }
